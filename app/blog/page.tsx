@@ -59,7 +59,8 @@ export default function BlogPage() {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {blogPosts.map((post) => (
             <BlogPost
-              key={post.slug}
+              // TODO: Add key prop
+              key={Math.random()}
               title={post.title}
               excerpt={post.excerpt}
               date={post.date}
