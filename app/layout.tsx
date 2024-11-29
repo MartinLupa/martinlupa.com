@@ -50,7 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <Analytics />
       </head>
-      <body className={'bg-black'}>{children}</body>
+      <body className={'bg-black text-zinc-500'}>{children}</body>
     </html>
   )
 }
