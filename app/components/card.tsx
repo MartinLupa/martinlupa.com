@@ -51,7 +51,7 @@ export const Card: React.FC<CardProps> = ({ title, description, repoUrl, demoUrl
             href={repoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-zinc-400 transition-colors hover:text-zinc-200 "
+            className="text-zinc-400 transition-colors hover:text-zinc-200"
           >
             <Github size={24} />
           </a>

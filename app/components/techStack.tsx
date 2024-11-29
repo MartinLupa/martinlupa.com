@@ -8,10 +8,9 @@ interface TechStackProps {
 export const TechStack: React.FC<TechStackProps> = ({ stack }) => {
   return (
     <div className="flex flex-wrap gap-2">
-      {stack?.map(() => (
-        stack === undefined ? null :
-        <SiGithubactions title="Github Actions" key={''} size={32} />
-      ))}
+      {stack?.map(() =>
+        stack === undefined ? null : <SiGithubactions title="Github Actions" key={''} size={32} />,
+      )}
     </div>
   )
 }
