@@ -48,14 +48,29 @@ export default async function Projects() {
         <TbPinned size={32} />
       </div>
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-        {pinnedRepositories.map((repo: Repository, index: number) => (
-          <div key={repo.id}>
+      <div className="grid grid-cols-1 grid-rows-2 gap-8 sm:grid-cols-2">
+        {/* First card takes full height of the two rows */}
+        <div className="row-span-2">
+          <Card
+            title={pinnedRepositories[0]?.name}
+            description={pinnedRepositories[0]?.description}
+            repoUrl={pinnedRepositories[0]?.html_url}
+            className={`${
+              pinnedColors[0 % pinnedColors.length]
+            } text-zinc-200 h-full`}
+          />
+        </div>
+
+        {/* Stacked cards on the right */}
+        {pinnedRepositories.slice(1, 3).map((repo: Repository, index: number) => (
+          <div key={repo.id} className="flex">
             <Card
               title={repo.name}
               description={repo.description}
               repoUrl={repo.html_url}
-              className={`${pinnedColors[index % pinnedColors.length]} text-zinc-200`} // Pass color as a class
+              className={`${
+                pinnedColors[(index + 1) % pinnedColors.length]
+              } text-zinc-200`}
             />
           </div>
         ))}
@@ -63,7 +78,7 @@ export default async function Projects() {
 
       <div className="h-px w-full bg-zinc-800" />
 
-      {/* All Repositories */}
+      {/* All other Repositories */}
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         {repositoriesData.map((repo: Repository) => (
           <Card
@@ -71,7 +86,6 @@ export default async function Projects() {
             title={repo.name}
             description={repo.description}
             repoUrl={repo.html_url}
-            // Optionally add demoUrl or techStack here
           />
         ))}
       </div>
