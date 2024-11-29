@@ -28,7 +28,6 @@ export default function Home() {
       <h1 className="text-edge-outline z-10 animate-title cursor-default whitespace-nowrap bg-white bg-clip-text px-0.5 py-3.5 font-display text-4xl text-transparent duration-1000 sm:text-6xl md:text-9xl">
         Martin Lupa
       </h1>
-
       <div className="animate-glow h-px w-screen animate-fade-left bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
       <div className="my-16 animate-fade-in text-center">
         <h2 className="text-lg text-zinc-500">
