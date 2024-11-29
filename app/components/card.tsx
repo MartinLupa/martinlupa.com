@@ -9,7 +9,7 @@ interface CardProps {
   description: string
   repoUrl: string
   demoUrl?: string
-  techStack: string[]
+  techStack?: string[]
 }
 
 export const Card: React.FC<CardProps> = ({ title, description, repoUrl, demoUrl, techStack }) => {
@@ -46,12 +46,12 @@ export const Card: React.FC<CardProps> = ({ title, description, repoUrl, demoUrl
         <h2 className="mb-4 text-xl font-bold text-zinc-200">{title}</h2>
         <p className="mb-6 text-sm text-zinc-400">{description}</p>
         <TechStack stack={techStack} />
-        <div className="mt-6 flex items-center justify-between">
+        <div className="mt-6 flex items-center justify-end">
           <a
             href={repoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-zinc-400 transition-colors hover:text-zinc-200"
+            className="text-zinc-400 transition-colors hover:text-zinc-200 "
           >
             <Github size={24} />
           </a>

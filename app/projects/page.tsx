@@ -1,24 +1,35 @@
+import { fetchAllRepos } from '@/utils/github'
 import { Card } from '../components/card'
 
-export default function Projects() {
+export default async function Projects() {
+  const repositoriesData = await fetchAllRepos()
+
   return (
-    <div>
-      <Card
-        title="vercel-deploy-action"
-        description="This GitHub Action automates the deployment of applications to Vercel, streamlining your CI/CD workflow. 
-          It supports both single and monorepo architectures and integrates seamlessly with existing GitHub workflows. Ideal for 
-          teams looking to automate their deployment process, this action simplifies deploying to Vercel with minimal configuration."
-        repoUrl="https://github.com/MartinLupa/vercel-deploy-action"
-        techStack={['aws']}
-      />
-      <Card
-        title="vercel-deploy-action"
-        description="This GitHub Action automates the deployment of applications to Vercel, streamlining your CI/CD workflow. 
-          It supports both single and monorepo architectures and integrates seamlessly with existing GitHub workflows. Ideal for 
-          teams looking to automate their deployment process, this action simplifies deploying to Vercel with minimal configuration."
-        repoUrl="https://github.com/MartinLupa/vercel-deploy-action"
-        techStack={['aws']}
-      />
+    <div className="relative pb-16">
+      <div className="px-6 pt-20 mx-auto space-y-8 max-w-7xl lg:px-8 md:space-y-16 md:pt-24 lg:pt-32">
+
+        <div className="max-w-2xl mx-auto lg:mx-0">
+          <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
+            Projects
+          </h2>
+          <p className="mt-4 text-zinc-400">
+            Some of the projects are from work and some are on my own time.
+          </p>
+        </div>
+
+        <div className="w-full h-px bg-zinc-800" />
+        <div className="grid grid-cols-1 gap-8 mx-auto lg:grid-cols-2 ">
+          {repositoriesData.map((repo) => (
+            <Card
+              key={repo.id}
+              title={repo.name}
+              description={repo.description}
+              repoUrl={repo.html_url}
+              // techStack={['react', 'typescript']}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   )
 }
