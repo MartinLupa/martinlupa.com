@@ -20,6 +20,16 @@ export default async function Projects() {
   const pinnedRepositories = await fetchPinnedRepositories()
   const repositoriesData = await fetchAllRepos()
 
+  const pinnedColors = [
+    'bg-blue-00',
+    'bg-green-500',
+    'bg-red-500',
+    'bg-yellow-500',
+    'bg-purple-500',
+    'bg-pink-500',
+    'bg-teal-500',
+  ]
+
   return (
     <div className="relative pb-16">
       <div className="mx-auto max-w-7xl space-y-8 px-6 pt-20 md:space-y-16 md:pt-24 lg:px-8 lg:pt-32">
@@ -39,24 +49,19 @@ export default async function Projects() {
           <TbPinned size={32} />
         </div>
 
-        {pinnedRepositories.map((repo: Repository) => {
-          ;<Card
-            key={repo.id}
-            title={repo.name}
-            description={repo.description}
-            repoUrl={repo.html_url}
-            // TODO: add demoUrl and techStack here
-          />
-        })}
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-          {pinnedRepositories.map((repo: Repository) => (
-            <Card
+          {pinnedRepositories.map((repo: Repository, index: number) => (
+            <div
               key={repo.id}
-              title={repo.name}
-              description={repo.description}
-              repoUrl={repo.html_url}
-              // TODO: add demoUrl and techStack here
-            />
+              
+            >
+              <Card
+                title={repo.name}
+                description={repo.description}
+                repoUrl={repo.html_url}
+                className={`${pinnedColors[index % pinnedColors.length]} text-zinc-200`} // Pass color as a class
+              />
+            </div>
           ))}
         </div>
 

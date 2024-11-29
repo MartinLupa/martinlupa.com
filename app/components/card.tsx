@@ -10,9 +10,10 @@ interface CardProps {
   repoUrl: string
   demoUrl?: string
   techStack?: string[] | undefined
+  className?: string
 }
 
-export const Card: React.FC<CardProps> = ({ title, description, repoUrl, demoUrl, techStack }) => {
+export const Card: React.FC<CardProps> = ({ title, description, repoUrl, demoUrl, techStack, className }) => {
   const mouseX = useSpring(0, { stiffness: 500, damping: 100 })
   const mouseY = useSpring(0, { stiffness: 500, damping: 100 })
 
@@ -28,7 +29,7 @@ export const Card: React.FC<CardProps> = ({ title, description, repoUrl, demoUrl
   return (
     <div
       onMouseMove={onMouseMove}
-      className="group relative overflow-hidden rounded-xl border border-zinc-600 duration-700 hover:border-zinc-400/50 hover:bg-zinc-800/10 md:gap-8"
+      className={`group relative overflow-hidden rounded-xl border border-zinc-600 duration-700 hover:border-zinc-400/50 hover:bg-zinc-800/10 md:gap-8 ${className}`}
     >
       <div className="pointer-events-none">
         <div className="absolute inset-0 z-0 transition duration-1000 [mask-image:linear-gradient(black,transparent)]" />
