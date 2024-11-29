@@ -1,4 +1,4 @@
-import { Card } from "../components/card";
+import { Card } from '../components/card'
 
 export default function Projects() {
   return (
@@ -22,4 +22,3 @@ export default function Projects() {
     </div>
   )
 }
-
