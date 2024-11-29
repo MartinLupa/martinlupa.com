@@ -1,4 +1,6 @@
 {
   "extends": ["plugin:prettier/recommended", "next/core-web-vitals", "next/typescript"],
-  "plugins": ["prettier"]
+  "rules": {
+    "semi": ["error", "never"]
+  }
 }

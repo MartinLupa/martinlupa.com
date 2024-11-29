@@ -1,11 +1,11 @@
-import Link from 'next/link';
-import React from 'react';
-import Particles from './components/particles';
+import Link from 'next/link'
+import React from 'react'
+import Particles from './components/particles'
 
 const navigation = [
   { name: 'Projects', href: '/projects' },
   { name: 'Contact', href: '/contact' },
-];
+]
 
 export default function Home() {
   return (
@@ -24,17 +24,17 @@ export default function Home() {
         </ul>
       </nav>
       <div className="animate-glow hidden h-px w-screen animate-fade-left bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0 md:block" />
-      <Particles className="absolute inset-0 -z-10 animate-fade-in" quantity={100} />
+      <Particles className="absolute inset-0 -z-10 animate-fade-in" quantity={2000} />
       <h1 className="text-edge-outline z-10 animate-title cursor-default whitespace-nowrap bg-white bg-clip-text px-0.5 py-3.5 font-display text-4xl text-transparent duration-1000 sm:text-6xl md:text-9xl">
         Martin Lupa
       </h1>
 
       <div className="animate-glow hidden h-px w-screen animate-fade-right bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0 md:block" />
       <div className="my-16 animate-fade-in text-center">
-        <h2 className="text-sm text-zinc-500">
-          Full-Stack Developer: React.js, Next.js, Node.js, Go, AWS, IaC
+        <h2 className="text-lg text-zinc-500">
+          Full-Stack Developer: React.js, Next.js, Node.js, Go, AWS, IaC, CI/CD
         </h2>
       </div>
     </div>
-  );
+  )
 }
