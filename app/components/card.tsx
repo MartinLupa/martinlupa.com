@@ -13,7 +13,14 @@ interface CardProps {
   className?: string
 }
 
-export const Card: React.FC<CardProps> = ({ title, description, repoUrl, demoUrl, techStack, className }) => {
+export const Card: React.FC<CardProps> = ({
+  title,
+  description,
+  repoUrl,
+  demoUrl,
+  techStack,
+  className,
+}) => {
   const mouseX = useSpring(0, { stiffness: 500, damping: 100 })
   const mouseY = useSpring(0, { stiffness: 500, damping: 100 })
 

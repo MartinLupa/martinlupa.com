@@ -53,9 +53,14 @@ const blogPosts = [
 
 export default function BlogPage() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-tl from-black via-zinc-600/20 to-black">
-      <div className="w-full max-w-4xl px-4 py-8">
-        <h1 className="mb-8 text-center text-4xl font-bold text-zinc-100">Blog</h1>
+    <>
+      <div className="mx-auto max-w-2xl lg:mx-0">
+        <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">Blog</h2>
+      </div>
+
+      <div className="h-px w-full bg-zinc-800" />
+
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-1">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {blogPosts.map((post) => (
             <BlogPost
@@ -70,6 +75,6 @@ export default function BlogPage() {
           ))}
         </div>
       </div>
-    </div>
+    </>
   )
 }
