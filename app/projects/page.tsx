@@ -1,6 +1,13 @@
 import { fetchAllRepos } from '@/utils/github'
 import { Card } from '../components/card'
 
+interface Repository {
+  id: number;
+  name: string;
+  description: string;
+  html_url: string;
+}
+
 export default async function Projects() {
   const repositoriesData = await fetchAllRepos()
 
@@ -19,7 +26,7 @@ export default async function Projects() {
 
         <div className="w-full h-px bg-zinc-800" />
         <div className="grid grid-cols-1 gap-8 mx-auto lg:grid-cols-2 ">
-          {repositoriesData.map((repo) => (
+            {repositoriesData.map((repo: Repository) => (
             <Card
               key={repo.id}
               title={repo.name}
@@ -27,7 +34,7 @@ export default async function Projects() {
               repoUrl={repo.html_url}
               // techStack={['react', 'typescript']}
             />
-          ))}
+            ))}
         </div>
       </div>
     </div>
