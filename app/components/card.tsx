@@ -9,7 +9,7 @@ interface CardProps {
   description: string
   repoUrl: string
   demoUrl?: string
-  techStack?: string[]
+  techStack?: string[] | undefined
 }
 
 export const Card: React.FC<CardProps> = ({ title, description, repoUrl, demoUrl, techStack }) => {
