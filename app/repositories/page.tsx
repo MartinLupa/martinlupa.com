@@ -1,6 +1,7 @@
 import { fetchAllRepos } from '@/utils/github/rest-api'
 import { fetchPinnedRepositories } from '@/utils/github/graphql-api'
 import { Card } from '../components/card'
+import { TbPinned } from 'react-icons/tb'
 
 // TODO: Split interface between REST Repository and GRAPHQL Repository
 interface Repository {
@@ -33,7 +34,11 @@ export default async function Projects() {
 
         <div className="h-px w-full bg-zinc-800" />
 
-        <h3 className="text-xl font-bold tracking-tight text-zinc-100 sm:text-xl">Pinned</h3>
+        <div className="flex items-center space-x-2">
+          <h3 className="text-xl font-bold tracking-tight sm:text-xl">Pinned</h3>
+          <TbPinned size={32} />
+        </div>
+
         {pinnedRepositories.map((repo: Repository) => {
           ;<Card
             key={repo.id}
