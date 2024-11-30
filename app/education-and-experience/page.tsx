@@ -9,7 +9,6 @@ export default function EducationAndExperience() {
       </div>
       <div className="h-px w-full bg-zinc-800" />
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-1">
-        {/* Here goes Education and Experience content */}
         <EducationSection />
       </div>
 
@@ -27,7 +26,6 @@ export default function EducationAndExperience() {
       </div>
       <div className="h-px w-full bg-zinc-800" />
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-1">
-        {/* Here goes Education and Experience content */}
         <ExperienceSection />
       </div>
     </>
