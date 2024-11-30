@@ -1,6 +1,6 @@
 import { fetchAllRepos, RESTRepository } from '@/utils/github/rest-api'
 import { fetchPinnedRepositories, GraphQLRepository } from '@/utils/github/graphql-api'
-import { Card } from '../components/card'
+import { Card } from '../components/GeneralCard'
 import { TbPinned } from 'react-icons/tb'
 
 export default async function Projects() {
