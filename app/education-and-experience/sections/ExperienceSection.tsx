@@ -1,4 +1,4 @@
-import { ExperienceCard } from '@/app/components/ExperienceCard'
+import { ExperienceCard } from "@/app/components/ExperienceCard"
 
 export default function ExperienceSection() {
   const relevantExperienceData = [
