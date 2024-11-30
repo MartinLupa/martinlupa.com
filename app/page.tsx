@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import Particles from './components/Particles'
+import Particles from './components/particles'
 
 const navigation = [
   { name: 'Experience', href: '/education-and-experience' },

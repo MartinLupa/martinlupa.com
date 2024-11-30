@@ -2,7 +2,7 @@
 
 import { motion, useMotionTemplate, useSpring } from 'framer-motion'
 import { Github, ExternalLink } from 'lucide-react'
-import { TechStack } from './TechStack'
+import { TechStack } from './techStack'
 
 interface CardProps {
   title: string
