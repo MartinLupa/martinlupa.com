@@ -6,10 +6,11 @@ import { TechStack } from './techStack'
 
 interface CardProps {
   title: string
-  description: string
+  description: string | null
   repoUrl: string
   demoUrl?: string
   techStack?: string[] | undefined
+  createdAt: string
   className?: string
 }
 
@@ -19,6 +20,7 @@ export const Card: React.FC<CardProps> = ({
   repoUrl,
   demoUrl,
   techStack,
+  createdAt,
   className,
 }) => {
   const mouseX = useSpring(0, { stiffness: 500, damping: 100 })
@@ -50,10 +52,16 @@ export const Card: React.FC<CardProps> = ({
         />
       </div>
 
-      <div className="relative z-20 p-8">
-        <h2 className="mb-4 text-xl font-bold text-zinc-200">{title}</h2>
-        <p className="mb-6 text-sm text-zinc-400">{description}</p>
-        <TechStack stack={techStack} />
+      <div className="relative z-20 flex h-full flex-col p-8">
+        <div className="flex-grow">
+          <time dateTime={new Date(createdAt).toISOString()}>
+            {Intl.DateTimeFormat(undefined, { dateStyle: 'medium' }).format(new Date(createdAt))}
+          </time>
+
+          <h2 className="mb-4 text-xl font-bold text-zinc-200">{title}</h2>
+          <p className="mb-6 text-sm text-zinc-400">{description}</p>
+          <TechStack stack={techStack} />
+        </div>
         <div className="mt-6 flex items-center justify-end">
           <a
             href={repoUrl}
@@ -68,7 +76,7 @@ export const Card: React.FC<CardProps> = ({
               href={demoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-zinc-400 transition-colors hover:text-zinc-200"
+              className="ml-2 text-zinc-400 transition-colors hover:text-zinc-200"
             >
               <ExternalLink size={24} />
             </a>

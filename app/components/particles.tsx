@@ -150,13 +150,7 @@ export default function Particles({
     }
   }
 
-  const remapValue = (
-    value: number,
-    start1: number,
-    end1: number,
-    start2: number,
-    end2: number,
-  ): number => {
+  const remapValue = (value: number, start1: number, end1: number, start2: number, end2: number): number => {
     const remapped = ((value - start1) * (end2 - start2)) / (end1 - start1) + start2
     return remapped > 0 ? remapped : 0
   }
@@ -183,10 +177,8 @@ export default function Particles({
       }
       circle.x += circle.dx
       circle.y += circle.dy
-      circle.translateX +=
-        (mouse.current.x / (staticity / circle.magnetism) - circle.translateX) / ease
-      circle.translateY +=
-        (mouse.current.y / (staticity / circle.magnetism) - circle.translateY) / ease
+      circle.translateX += (mouse.current.x / (staticity / circle.magnetism) - circle.translateX) / ease
+      circle.translateY += (mouse.current.y / (staticity / circle.magnetism) - circle.translateY) / ease
       // circle gets out of the canvas
       if (
         circle.x < -circle.size ||

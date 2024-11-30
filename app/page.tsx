@@ -15,11 +15,7 @@ export default async function Home() {
       <nav className="my-16 animate-fade-in">
         <ul className="flex items-center justify-center gap-4">
           {navigation.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-sm text-zinc-500 duration-500 hover:text-zinc-300"
-            >
+            <Link key={item.href} href={item.href} className="text-sm text-zinc-500 duration-500 hover:text-zinc-300">
               {item.name}
             </Link>
           ))}
@@ -32,9 +28,7 @@ export default async function Home() {
       </h1>
       <div className="animate-glow h-px w-screen animate-fade-left bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
       <div className="my-16 animate-fade-in text-center">
-        <h2 className="text-lg text-zinc-500">
-          Full-Stack Developer: React.js, Next.js, Node.js, Go, AWS, IaC, CI/CD
-        </h2>
+        <h2 className="text-lg text-zinc-500">Full-Stack Developer: React.js, Next.js, Node.js, Go, AWS, IaC, CI/CD</h2>
       </div>
     </div>
   )

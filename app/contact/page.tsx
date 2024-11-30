@@ -10,8 +10,7 @@ export default function Contact() {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-1">
         {/* Here goes Contact content */}
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
-          ut labore et dolore.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore.
         </p>
       </div>
     </>

@@ -1,17 +1,18 @@
 /**
  * Useful links:
  * Github GraphQL Explorer: https://docs.github.com/en/graphql/overview/explorer
- * Allows you to test queries and mutations against the Github API
+ * Allows you to test queries and mutations against Github's API
  */
 
 const GET_PINNED_REPOSITORIES_QUERY = `
   {
       user(login: "${process.env.GITHUB_USERNAME}") {
-        pinnedItems(first: 6, types: REPOSITORY) {
+        pinnedItems(first: 3, types: REPOSITORY) {
           nodes {
             ... on Repository {
               name
               createdAt
+              url
               description
               primaryLanguage {
                 name
@@ -25,6 +26,20 @@ const GET_PINNED_REPOSITORIES_QUERY = `
         }
       }
     }`
+
+export interface GraphQLRepository {
+  name: string
+  createdAt: string
+  url: string
+  description: string | null
+  primaryLanguage: {
+    name: string
+  }
+  stargazerCount: number
+  forks: {
+    totalCount: number
+  }
+}
 
 //eslint-disable-next-line
 async function fetchGithubGraphQL(query: string): Promise<any> {
