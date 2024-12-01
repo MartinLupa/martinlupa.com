@@ -51,8 +51,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <Analytics />
       </head>
-      <body className={'bg-black text-zinc-500'}>{children}</body>
-      <Footer />
+      <body className={'bg-black bg-gradient-to-tl from-zinc-900 via-zinc-400/10 to-zinc-900 text-zinc-500'}>
+        {children}
+        <Footer />
+      </body>
     </html>
   )
 }
