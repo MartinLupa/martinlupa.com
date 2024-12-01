@@ -4,9 +4,10 @@ import Particles from './components/Particles'
 
 const navigation = [
   { name: 'Experience', href: '/education-and-experience' },
-  { name: 'Repositories', href: '/repositories' },
-  { name: 'Blog', href: '/blog' },
+  // { name: 'Repositories', href: '/repositories' },
+  // { name: 'Blog', href: '/blog' },
   { name: 'Contact', href: '/contact' },
+  { name: 'Career insights', href: '/career-insights' },
 ]
 
 export default async function Home() {
@@ -22,7 +23,7 @@ export default async function Home() {
         </ul>
       </nav>
       <div className="animate-glow h-px w-screen animate-fade-left bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
-      <Particles className="absolute inset-0 -z-10 animate-fade-in" quantity={2000} />
+      <Particles className="absolute inset-0 -z-10 animate-fade-in" quantity={200} />
       <h1 className="text-edge-outline z-10 animate-title cursor-default whitespace-nowrap bg-white bg-clip-text px-0.5 py-3.5 font-display text-6xl text-transparent duration-1000">
         Martin Lupa
       </h1>

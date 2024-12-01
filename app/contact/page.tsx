@@ -1,4 +1,4 @@
-export default function Contact() {
+export default function ContactPage() {
   return (
     <>
       <div className="mx-auto max-w-2xl lg:mx-0">

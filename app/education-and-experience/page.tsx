@@ -1,7 +1,7 @@
 import EducationSection from './sections/EducationSection'
 import ExperienceSection from './sections/ExperienceSection'
 
-export default function EducationAndExperience() {
+export default function EducationAndExperiencePage() {
   return (
     <>
       <div className="mx-auto max-w-2xl lg:mx-0">
