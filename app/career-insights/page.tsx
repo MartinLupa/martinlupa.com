@@ -39,9 +39,9 @@ export default function ExperiencePage() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl space-y-8 px-6 pt-20 md:space-y-16 md:pt-24 lg:px-8 lg:pt-32">
+    <div className="mx-auto max-w-7xl space-y-8 px-6 md:space-y-16 lg:px-8">
       <Navigation />
-      <div className="mx-auto max-w-2xl lg:mx-0">
+      <div className="mx-auto lg:mx-0">
         <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">AI-Powered Career Insights</h2>
         <p className="mt-4 text-zinc-400">
           Dive into my professional journey with my AI assistant. Ask about my skills, projects, and experiences to get
