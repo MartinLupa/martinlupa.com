@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import LocalFont from 'next/font/local'
 import { Metadata } from 'next'
 import { Analytics } from './components/Analytics'
+import { Footer } from './components/Footer'
 
 export const metadata: Metadata = {
   title: {
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Analytics />
       </head>
       <body className={'bg-black text-zinc-500'}>{children}</body>
+      <Footer />
     </html>
   )
 }
