@@ -1,3 +1,24 @@
+import { FaLinkedin, FaGithub } from 'react-icons/fa'
+import { MdEmail } from 'react-icons/md'
+
+const contactInfo = [
+  {
+    icon: FaLinkedin,
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/martin-lupa/',
+  },
+  {
+    icon: FaGithub,
+    label: 'GitHub',
+    href: 'https://github.com/MartinLupa',
+  },
+  {
+    icon: MdEmail,
+    label: 'Email',
+    href: 'mailto:martinignaciolupa@gmail.com',
+  },
+]
+
 export default function ContactPage() {
   return (
     <>
@@ -7,12 +28,26 @@ export default function ContactPage() {
 
       <div className="h-px w-full bg-zinc-800" />
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-1">
-        {/* Here goes Contact content */}
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore.
+      <div className="mt-8">
+        <p className="text-zinc-400 mb-6">
+          Feel free to reach out to me through any of the following channels. I'm always open to new opportunities and collaborations.
         </p>
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
+          {contactInfo.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-2 text-zinc-300 hover:text-zinc-100 transition-colors"
+            >
+              <item.icon className="w-6 h-6" />
+              <span>{item.label}</span>
+            </a>
+          ))}
+        </div>
       </div>
     </>
   )
 }
+
