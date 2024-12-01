@@ -30,7 +30,7 @@ export function Navigation() {
       <div>
         <ul className="flex items-center justify-between">
           <Link className="text-sm text-zinc-500 duration-500 hover:text-zinc-300" href="/">
-            <FaArrowLeft size={32} />
+            <FaArrowLeft size={24} />
           </Link>
           <div className="flex w-auto gap-4">
             {navigationLinks

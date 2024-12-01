@@ -44,8 +44,9 @@ export default function ExperiencePage() {
       <div className="mx-auto lg:mx-0">
         <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">AI-Powered Career Insights</h2>
         <p className="mt-4 text-zinc-400">
-          Dive into my professional journey with my AI assistant. Ask about my skills, projects, and experiences to get
-          insights about my experience.
+          Explore My Professional Journey. Interact with my AI assistant, trained on insights from my personal
+          repositories and resume. Ask about my skills, projects, and relevant experience to get a personalized overview
+          of my work and expertise.
         </p>
       </div>
 
