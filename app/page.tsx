@@ -1,21 +1,14 @@
 import Link from 'next/link'
 import React from 'react'
 import Particles from './components/Particles'
-
-const navigation = [
-  { name: 'Experience', href: '/education-and-experience' },
-  // { name: 'Repositories', href: '/repositories' },
-  // { name: 'Blog', href: '/blog' },
-  { name: 'Career insights', href: '/career-insights' },
-  { name: 'Contact', href: '/contact' },
-]
+import { navigationLinks } from '@/utils/navigation-links'
 
 export default async function Home() {
   return (
     <div className="flex h-screen w-screen flex-col items-center justify-center overflow-hidden bg-gradient-to-tl from-black via-zinc-600/20 to-black">
       <nav className="my-16 animate-fade-in">
         <ul className="flex items-center justify-center gap-4">
-          {navigation.map((item) => (
+          {navigationLinks.map((item) => (
             <Link key={item.href} href={item.href} className="text-sm text-zinc-500 duration-500 hover:text-zinc-300">
               {item.name}
             </Link>

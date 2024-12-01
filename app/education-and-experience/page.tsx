@@ -1,9 +1,11 @@
+import { Navigation } from '../components/Navigation'
 import EducationSection from './sections/EducationSection'
 import ExperienceSection from './sections/ExperienceSection'
 
 export default function EducationAndExperiencePage() {
   return (
-    <>
+    <div className="mx-auto max-w-7xl space-y-8 px-6 pt-20 md:space-y-16 md:pt-24 lg:px-8 lg:pt-32">
+      <Navigation />
       <div className="mx-auto max-w-2xl lg:mx-0">
         <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">Education</h2>
       </div>
@@ -24,10 +26,12 @@ export default function EducationAndExperiencePage() {
       <div className="mx-auto max-w-2xl lg:mx-0">
         <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">Relevant Experience</h2>
       </div>
+
       <div className="h-px w-full bg-zinc-800" />
+
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-1">
         <ExperienceSection />
       </div>
-    </>
+    </div>
   )
 }
