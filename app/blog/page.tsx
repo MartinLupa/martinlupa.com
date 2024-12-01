@@ -1,4 +1,4 @@
-import { BlogPost } from '../components/tempBlogPost'
+import { BlogPost } from '../components/BlogPost'
 
 const blogPosts = [
   {
