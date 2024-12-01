@@ -6,8 +6,8 @@ const navigation = [
   { name: 'Experience', href: '/education-and-experience' },
   // { name: 'Repositories', href: '/repositories' },
   // { name: 'Blog', href: '/blog' },
-  { name: 'Contact', href: '/contact' },
   { name: 'Career insights', href: '/career-insights' },
+  { name: 'Contact', href: '/contact' },
 ]
 
 export default async function Home() {

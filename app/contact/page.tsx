@@ -29,19 +29,20 @@ export default function ContactPage() {
       <div className="h-px w-full bg-zinc-800" />
 
       <div className="mt-8">
-        <p className="text-zinc-400 mb-6">
-          Feel free to reach out to me through any of the following channels. I'm always open to new opportunities and collaborations.
+        <p className="mb-6 text-zinc-400">
+          Feel free to reach out to me through any of the following channels. I'm always open to new opportunities and
+          collaborations.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
+        <div className="flex flex-col gap-4 sm:flex-row sm:gap-8">
           {contactInfo.map((item) => (
             <a
               key={item.label}
               href={item.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center space-x-2 text-zinc-300 hover:text-zinc-100 transition-colors"
+              className="flex items-center space-x-2 text-zinc-300 transition-colors hover:text-zinc-100"
             >
-              <item.icon className="w-6 h-6" />
+              <item.icon className="h-6 w-6" />
               <span>{item.label}</span>
             </a>
           ))}
@@ -50,4 +51,3 @@ export default function ContactPage() {
     </>
   )
 }
-
