@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
           message: {
             role: 'assistant',
             content:
-              'Integration is disabled right now. Martin is too cheap to spend money on you 🤣. Please try again later.',
+              'Integration is disabled right now. Martin is too cheap to spend money to everyone requesting a prompt 🤣. But if you are a recruiter, please ask him about it in an interview!',
             refusal: null,
           },
           logprobs: null,
