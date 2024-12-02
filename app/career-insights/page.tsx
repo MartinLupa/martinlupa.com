@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Badge } from '../components/Badge'
 import { Navigation } from '../components/Navigation'
+import { FaArrowUp } from "react-icons/fa6";
 
 // TODO: Investigate if it is possible to fetch them dynamically from Github's API?
 const technologies = [
@@ -26,12 +27,18 @@ const technologies = [
 
 export default function ExperiencePage() {
   const [prompt, setPrompt] = useState('')
+  const [output, setOutput] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     // TODO: Implement GPT interaction logic here
     console.log('Submitted prompt:', prompt)
+
     setPrompt('')
+
+    setTimeout(() => {
+      setOutput("Martin's experience with React includes building a variety of projects, such as a personal portfolio, a blog, and a web application for a client. He has experience with state management libraries like Redux and Recoil, as well as testing libraries like Jest and React Testing Library.")
+    }, 2000)
   }
 
   const handleBadgeClick = (tech: string) => {
@@ -52,24 +59,26 @@ export default function ExperiencePage() {
 
       <div className="h-px w-full bg-zinc-800" />
 
+      {output && <p className='text-zinc-100 whitespace-pre-wrap'>{output}</p>}
+
       <form onSubmit={handleSubmit} className="relative">
         <textarea
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
-          placeholder="Ask me anything about my experience..."
-          className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-2 text-zinc-100 placeholder-zinc-400 focus:border-zinc-600 focus:outline-none focus:ring-2 focus:ring-zinc-600"
+          placeholder="Ask me anything about Martin's experience..."
+          className="w-full rounded-3xl  border-zinc-600 bg-zinc-800 px-4 py-2 text-zinc-100 placeholder-zinc-400 focus:border-zinc-600 focus:outline-none focus:ring-zinc-600"
           rows={4}
         />
         <button
           type="submit"
-          className="absolute bottom-3 right-2 rounded-md bg-zinc-700 px-4 py-2 text-sm font-medium text-zinc-100 hover:bg-zinc-600 focus:outline-none focus:ring-2 focus:ring-zinc-600"
+          className="absolute bottom-3 right-2 rounded-full bg-zinc-700 px-3 py-3 text-sm font-medium text-zinc-100 hover:bg-zinc-600 focus:outline-none focus:ring-2 focus:ring-zinc-600"
         >
-          Send
+          <FaArrowUp size={16} />
         </button>
       </form>
 
       <div className="mt-8">
-        <h3 className="mb-4 text-xl font-semibold text-zinc-100">Technologies I Know:</h3>
+        <h3 className="mb-4 text-xl font-semibold text-zinc-100">Technologies I have used:</h3>
         <div className="flex flex-wrap gap-2">
           {technologies.map((tech) => (
             <Badge onClick={() => handleBadgeClick(tech)} key={tech}>
