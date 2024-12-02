@@ -32,8 +32,7 @@ export default function ContactPage() {
 
       <div className="mt-8">
         <p className="mb-6 text-zinc-400">
-          Feel free to reach out to me through any of the following channels. I&apos;m always open to new opportunities
-          and collaborations.
+          Feel free to reach out to me through any of the following channels.
         </p>
         <div className="flex flex-col gap-4 sm:flex-row sm:gap-8">
           {contactInfo.map((item) => (
