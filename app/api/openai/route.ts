@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
           message: {
             role: 'assistant',
             content:
-              "Integration is on a little break right now—Martin's wallet is on a strict diet! 😂 But hey, if you're a recruiter, feel free to grill him about it in the interview!",
+            'Integration is on a little break right now — Martin\'s wallet is on a strict diet! 😂 But hey, if you\'re a recruiter, feel free to grill him about it in the interview!',
             refusal: null,
           },
           logprobs: null,
