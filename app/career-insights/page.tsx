@@ -44,15 +44,19 @@ export default function ExperiencePage() {
       body: JSON.stringify({ prompt }),
     })
 
-    const { data } = await res.json()
+    const { data, error } = await res.json()
+
+    console.log("data: ", data)
+    console.log("error: ", error)
+
+    if (error) {
+      setLoading(false)
+      setOutput('Failed to fetch API. Please try again.')
+      return
+    }
 
     setLoading(false)
     setPrompt('')
-
-    if (data.error) {
-      setOutput('Failed to fetch API. Please try again.')
-    }
-
     setOutput(data)
   }
 
