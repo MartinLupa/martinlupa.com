@@ -46,9 +46,6 @@ export default function ExperiencePage() {
 
     const { data, error } = await res.json()
 
-    console.log("data: ", data)
-    console.log("error: ", error)
-
     if (error) {
       setLoading(false)
       setOutput('Failed to fetch API. Please try again.')
