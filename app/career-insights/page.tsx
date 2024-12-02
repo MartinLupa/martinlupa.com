@@ -4,8 +4,8 @@ import { useState } from 'react'
 import { Badge } from '../components/Badge'
 import { Navigation } from '../components/Navigation'
 import { FaArrowUp, FaSpinner } from 'react-icons/fa6'
+import { ReactTyped } from 'react-typed'
 
-// TODO: Investigate if it is possible to fetch them dynamically from Github's API?
 const technologies = [
   'React',
   'Next.js',
@@ -76,7 +76,16 @@ export default function ExperiencePage() {
       <div className="h-px w-full bg-zinc-800" />
 
       <p className="whitespace-pre-wrap text-zinc-100">
-        {loading ? <FaSpinner className="animate-spin text-zinc-100" /> : output}
+        {loading ? (
+          <FaSpinner className="animate-spin text-zinc-100" />
+        ) : output ? (
+          <ReactTyped
+            strings={[output]} 
+            typeSpeed={10} 
+            showCursor={true} 
+            cursorChar="|" 
+          />
+        ) : null}
       </p>
 
       <form onSubmit={handleSubmit} className="relative">
