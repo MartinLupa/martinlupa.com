@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Badge } from '../components/Badge'
 import { Navigation } from '../components/Navigation'
-import { FaArrowUp } from "react-icons/fa6";
+import { FaArrowUp, FaSpinner } from 'react-icons/fa6'
 
 // TODO: Investigate if it is possible to fetch them dynamically from Github's API?
 const technologies = [
@@ -22,23 +22,38 @@ const technologies = [
   'Git',
   'CI/CD',
   'Jest',
-  'React Testing Library',
 ]
 
 export default function ExperiencePage() {
   const [prompt, setPrompt] = useState('')
-  const [output, setOutput] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [output, setOutput] = useState(null as string | null)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // TODO: Implement GPT interaction logic here
-    console.log('Submitted prompt:', prompt)
 
+    if (!prompt) {
+      return
+    }
+
+    setLoading(true)
+
+    const res = await fetch('/api/openai', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt }),
+    })
+
+    const { data } = await res.json()
+
+    setLoading(false)
     setPrompt('')
 
-    setTimeout(() => {
-      setOutput("Martin's experience with React includes building a variety of projects, such as a personal portfolio, a blog, and a web application for a client. He has experience with state management libraries like Redux and Recoil, as well as testing libraries like Jest and React Testing Library.")
-    }, 2000)
+    if (data.error) {
+      setOutput('Failed to fetch API. Please try again.')
+    }
+
+    setOutput(data)
   }
 
   const handleBadgeClick = (tech: string) => {
@@ -59,14 +74,16 @@ export default function ExperiencePage() {
 
       <div className="h-px w-full bg-zinc-800" />
 
-      {output && <p className='text-zinc-100 whitespace-pre-wrap'>{output}</p>}
+      <p className="whitespace-pre-wrap text-zinc-100">
+        {loading ? <FaSpinner className="animate-spin text-zinc-100" /> : output}
+      </p>
 
       <form onSubmit={handleSubmit} className="relative">
         <textarea
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           placeholder="Ask me anything about Martin's experience..."
-          className="w-full rounded-3xl  border-zinc-600 bg-zinc-800 px-4 py-2 text-zinc-100 placeholder-zinc-400 focus:border-zinc-600 focus:outline-none focus:ring-zinc-600"
+          className="w-full rounded-3xl border-zinc-600 bg-zinc-800 px-4 py-2 text-zinc-100 placeholder-zinc-400 focus:border-zinc-600 focus:outline-none focus:ring-zinc-600"
           rows={4}
         />
         <button
