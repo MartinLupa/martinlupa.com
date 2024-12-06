@@ -23,7 +23,7 @@ export default async function projectDetailsPage(props: { params: tParams }) {
       )}
 
       <div className="h-px w-full bg-zinc-800" />
-
+      <p>Testing the use of react-syntax-highlighter:</p>
       <SyntaxHighlighter language={'tsx'} style={tomorrowNightEighties} showLineNumbers wrapLines>
         {`<div className="mx-auto lg:mx-0">
   <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">{projectSlug}</h2>
