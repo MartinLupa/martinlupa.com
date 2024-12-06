@@ -5,8 +5,6 @@ import { Navigation } from '../components/Navigation'
 export default async function Projects() {
   const pinnedRepositories = await fetchPinnedRepositories()
 
-  console.log(pinnedRepositories)
-
   return (
     <div className="mx-auto max-w-7xl space-y-8 md:space-y-16 lg:px-8">
       <Navigation />
