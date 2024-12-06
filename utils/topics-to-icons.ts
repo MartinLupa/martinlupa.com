@@ -1,5 +1,5 @@
 import { IconType } from 'react-icons'
-import { SiAmazon, SiGithubactions, SiTerraform, SiTypescript } from 'react-icons/si'
+import { SiAmazon, SiGithubactions, SiTerraform } from 'react-icons/si'
 import { RiNextjsLine } from 'react-icons/ri'
 import { AiOutlineOpenAI } from 'react-icons/ai'
 import { GrGraphQl } from 'react-icons/gr'

@@ -34,6 +34,32 @@ const GET_PINNED_REPOSITORIES_QUERY = `
       }
     }`
 
+const GET_REPOSITORY_DATA = `
+  query GetRepositoryData($name: String!) {
+    user(login: "${process.env.GITHUB_USERNAME}") {
+      repository(name: $name) {
+        id
+        name
+        createdAt
+        url
+        description
+        languages(first: 10) {
+          nodes {
+            name
+          }
+        }
+        repositoryTopics(first: 10) {
+          nodes {
+            topic {
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
 export interface GraphQLRepository {
   name: string
   createdAt: string
@@ -44,19 +70,26 @@ export interface GraphQLRepository {
 }
 
 //eslint-disable-next-line
-async function fetchGithubGraphQL(query: string): Promise<any> {
+async function fetchGithubGraphQL(query: string, variables?: Record<string, unknown>): Promise<any> {
   return fetch('https://api.github.com/graphql', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
     },
-    body: JSON.stringify({ query }),
+    body: JSON.stringify({ query, variables }),
     next: { tags: ['posts'] },
-  }).then((response) => response.json())
+  })
+    .then((response) => response.json())
+    .catch((error) => console.error(error))
 }
 
 export async function fetchPinnedRepositories() {
   const response = await fetchGithubGraphQL(GET_PINNED_REPOSITORIES_QUERY)
-  return response.data.user.pinnedItems.nodes
+  return response?.data?.user?.pinnedItems?.nodes
+}
+
+export async function fetchRepositoryData(variables: { name: string }) {
+  const response = await fetchGithubGraphQL(GET_REPOSITORY_DATA, variables)
+  return response.data?.user?.repository
 }

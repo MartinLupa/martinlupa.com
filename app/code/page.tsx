@@ -5,6 +5,8 @@ import { Navigation } from '../components/Navigation'
 export default async function Projects() {
   const pinnedRepositories = await fetchPinnedRepositories()
 
+  console.log(pinnedRepositories)
+
   return (
     <div className="mx-auto max-w-7xl space-y-8 md:space-y-16 lg:px-8">
       <Navigation />
@@ -14,18 +16,6 @@ export default async function Projects() {
       </div>
       <div className="h-px w-full bg-zinc-800" />
       <div className="grid grid-cols-1 grid-rows-2 gap-8 sm:grid-cols-2">
-        {/* First card takes full height of the two rows */}
-        {/* <div className="row-span-2">
-          <Card
-            title={pinnedRepositories[0]?.name}
-            description={pinnedRepositories[0]?.description}
-            repoUrl={pinnedRepositories[0]?.html_url}
-            className={`${pinnedColors[0 % pinnedColors.length]} h-full text-zinc-200`}
-            createdAt={pinnedRepositories[0]?.createdAt}
-          />
-        </div> */}
-
-        {/* Stacked cards on the right */}
         {pinnedRepositories.map((repo: GraphQLRepository) => (
           <Card
             key={repo.name}
