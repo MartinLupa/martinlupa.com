@@ -6,9 +6,8 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { FaArrowLeft } from 'react-icons/fa6'
 
-export function Navigation() {
+export function Navigation({ disableLinks = false }) {
   const pathname = usePathname()
-
   const ref = useRef<HTMLElement>(null)
   const [isIntersecting, setIntersecting] = useState(true)
 
@@ -28,24 +27,30 @@ export function Navigation() {
         }`}
       ></div>
       <div>
-        <ul className="flex items-center justify-between">
-          <Link className="text-sm text-zinc-500 duration-500 hover:text-zinc-300" href="/">
+        {disableLinks ? (
+          <Link className="text-sm text-zinc-500 duration-500 hover:text-zinc-300" href={'.'}>
             <FaArrowLeft size={24} />
           </Link>
-          <div className="flex w-auto gap-4">
-            {navigationLinks
-              .filter((item) => item.href !== pathname)
-              .map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="text-sm text-zinc-500 duration-500 hover:text-zinc-300"
-                >
-                  {item.name}
-                </Link>
-              ))}
-          </div>
-        </ul>
+        ) : (
+          <ul className="flex items-center justify-between">
+            <Link className="text-sm text-zinc-500 duration-500 hover:text-zinc-300" href="/">
+              <FaArrowLeft size={24} />
+            </Link>
+            <div className="flex w-auto gap-4">
+              {navigationLinks
+                .filter((item) => item.href !== pathname)
+                .map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="text-sm text-zinc-500 duration-500 hover:text-zinc-300"
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+            </div>
+          </ul>
+        )}
       </div>
     </header>
   )
