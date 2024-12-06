@@ -1,7 +1,6 @@
 'use client'
 
 import { motion, useMotionTemplate, useSpring } from 'framer-motion'
-import { Github, ExternalLink } from 'lucide-react'
 import { TechStack } from './TechStack'
 import Link from 'next/link'
 
@@ -20,9 +19,9 @@ interface CardProps {
 export const Card: React.FC<CardProps> = ({
   title,
   description,
-  repoUrl,
-  demoUrl,
-  techStack,
+  // repoUrl,
+  // demoUrl,
+  // techStack,
   createdAt,
   className,
   topics,
@@ -40,7 +39,7 @@ export const Card: React.FC<CardProps> = ({
   const maskImage = useMotionTemplate`radial-gradient(240px at ${mouseX}px ${mouseY}px, white, transparent)`
   const style = { maskImage, WebkitMaskImage: maskImage }
 
-  const date = new Date(createdAt).toLocaleDateString('en-US', { dateStyle: 'medium' });
+  const date = new Date(createdAt).toLocaleDateString('en-US', { dateStyle: 'medium' })
 
   return (
     <Link href={href}>
@@ -62,9 +61,7 @@ export const Card: React.FC<CardProps> = ({
 
         <div className="relative z-20 flex h-full flex-col p-8">
           <div className="flex-grow">
-            <time dateTime={new Date(createdAt).toISOString()}>
-              {date}
-            </time>
+            <time dateTime={new Date(createdAt).toISOString()}>{date}</time>
 
             <h2 className="mb-4 text-xl font-bold text-zinc-200">{title}</h2>
             <p className="mb-6 text-sm text-zinc-400">{description}</p>

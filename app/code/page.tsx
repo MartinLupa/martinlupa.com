@@ -1,16 +1,9 @@
-import { fetchAllRepos, RESTRepository } from '@/utils/github/rest-api'
 import { fetchPinnedRepositories, GraphQLRepository } from '@/utils/github/graphql-api'
-import { TbPinned } from 'react-icons/tb'
 import { Card } from '../components/GeneralCard'
 import { Navigation } from '../components/Navigation'
 
 export default async function Projects() {
   const pinnedRepositories = await fetchPinnedRepositories()
-  const repositoriesData = await fetchAllRepos()
-
-  // console.log("Pinned Repositories: ", pinnedRepositories)
-
-  const pinnedColors = ['bg-blue-500', 'bg-green-500', 'bg-red-500']
 
   return (
     <div className="mx-auto max-w-7xl space-y-8 md:space-y-16 lg:px-8">
@@ -33,7 +26,7 @@ export default async function Projects() {
         </div> */}
 
         {/* Stacked cards on the right */}
-        {pinnedRepositories.map((repo: GraphQLRepository, index: number) => (
+        {pinnedRepositories.map((repo: GraphQLRepository) => (
           <Card
             key={repo.name}
             title={repo.name}

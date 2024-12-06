@@ -1,5 +1,4 @@
 import React from 'react'
-import { SiGithubactions, SiTerraform, SiAmazon } from 'react-icons/si'
 import { topicsToIcons } from '@/utils/topics-to-icons'
 interface TechStackProps {
   stack: string[] | undefined
