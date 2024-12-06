@@ -7,19 +7,26 @@
 const GET_PINNED_REPOSITORIES_QUERY = `
   {
       user(login: "${process.env.GITHUB_USERNAME}") {
-        pinnedItems(first: 3, types: REPOSITORY) {
+        pinnedItems(first: 6, types: REPOSITORY) {
           nodes {
             ... on Repository {
+              id
               name
               createdAt
               url
               description
-              primaryLanguage {
-                name
+              languages {
+                nodes {
+                  name
+                }
               }
-              stargazerCount
-              forks {
-                totalCount
+              repositoryTopics (first: 10) {
+                nodes {
+                  topic {
+                    name 
+                  }
+            
+                }
               }
             }
           }
@@ -32,13 +39,8 @@ export interface GraphQLRepository {
   createdAt: string
   url: string
   description: string | null
-  primaryLanguage: {
-    name: string
-  }
-  stargazerCount: number
-  forks: {
-    totalCount: number
-  }
+  languages: { nodes: { name: string }[] }
+  repositoryTopics: { nodes: { topic: { name: string } }[] }
 }
 
 //eslint-disable-next-line

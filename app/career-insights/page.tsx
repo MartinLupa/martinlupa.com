@@ -79,12 +79,7 @@ export default function ExperiencePage() {
         {loading ? (
           <FaSpinner className="animate-spin text-zinc-100" />
         ) : output ? (
-          <ReactTyped
-            strings={[output]} 
-            typeSpeed={10} 
-            showCursor={true} 
-            cursorChar="|" 
-          />
+          <ReactTyped strings={[output]} typeSpeed={10} showCursor={true} cursorChar="|" />
         ) : null}
       </p>
 
