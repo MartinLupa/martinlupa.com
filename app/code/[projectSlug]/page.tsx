@@ -31,10 +31,9 @@ export default async function projectDetailsPage(props: { params: tParams }) {
         wrapLines
         customStyle={{
           fontSize: '14px',
-          minWidth: '200px',
           overflowY: 'auto',
           overflowWrap: 'break-word',
-          width: '90vw',
+          maxWidth: '90vw',
         }}
       >
         {`interface User {
