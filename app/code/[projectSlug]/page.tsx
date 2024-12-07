@@ -1,6 +1,8 @@
 import { Navigation } from '@/app/components/Navigation'
 import { TechStack } from '@/app/components/TechStack'
 import { fetchRepositoryData } from '@/utils/github/graphql-api'
+import SyntaxHighlighter from 'react-syntax-highlighter'
+import { tomorrowNightEighties } from 'react-syntax-highlighter/dist/cjs/styles/hljs'
 type tParams = Promise<{ projectSlug: string }>
 
 export default async function projectDetailsPage(props: { params: tParams }) {
@@ -21,6 +23,46 @@ export default async function projectDetailsPage(props: { params: tParams }) {
       )}
 
       <div className="h-px w-full bg-zinc-800" />
+      <p>Testing the use of react-syntax-highlighter: </p>
+      <SyntaxHighlighter
+        language={'tsx'}
+        style={tomorrowNightEighties}
+        showLineNumbers
+        wrapLines
+        customStyle={{
+          fontSize: '14px',
+          minWidth: '200px',
+          overflowY: 'auto',
+          overflowWrap: 'break-word',
+          width: '90vw',
+        }}
+      >
+        {`interface User {
+  id: number;
+  name: string;
+  email: string;
+  isAdmin: boolean;
+}
+
+class UserService {
+  private users: User[] = [];
+
+  addUser(user: User): void {
+    this.users.push(user);
+  }
+
+  getUserById(id: number): User | undefined {
+    return this.users.find(user => user.id === id);
+  }
+
+  getAllUsers(): User[] {
+    return this.users;
+  }
+}
+
+// Example usage
+const userService = new UserService();`}
+      </SyntaxHighlighter>
     </div>
   )
 }
