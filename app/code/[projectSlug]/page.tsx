@@ -1,10 +1,8 @@
 import { Navigation } from '@/app/components/Navigation'
 import { TechStack } from '@/app/components/TechStack'
-import { repositoriesDataPath } from '@/utils/data-path'
-// import { fetchRepositoryData } from '@/utils/github/graphql-api'
-import { readFile } from 'fs/promises'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { tomorrowNightEighties } from 'react-syntax-highlighter/dist/cjs/styles/hljs'
+import { promises as fs } from 'fs';
 
 type tParams = Promise<{ projectSlug: string }>
 
@@ -12,11 +10,11 @@ export default async function projectDetailsPage(props: { params: tParams }) {
   const { projectSlug } = await props.params
 
   // const repoData = await fetchRepositoryData({ name: projectSlug })
-  const repoData = JSON.parse(await readFile(repositoriesDataPath, 'utf8')).filter(
+  const repoData = JSON.parse(await fs.readFile(process.cwd() + '/app/repositories.json', 'utf8'))
+  .filter(
     (repo: { name: string }) => repo.name === projectSlug,
   )[0]
 
-  console.log('repoData: ', repoData)
   return (
     <div className="mx-auto max-w-7xl space-y-8 md:space-y-16 lg:px-8">
       <Navigation disableLinks={true} />
