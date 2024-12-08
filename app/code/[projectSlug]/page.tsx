@@ -1,14 +1,20 @@
 import { Navigation } from '@/app/components/Navigation'
 import { TechStack } from '@/app/components/TechStack'
-import { fetchRepositoryData } from '@/utils/github/graphql-api'
+// import { fetchRepositoryData } from '@/utils/github/graphql-api'
+import { readFile } from 'fs/promises'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { tomorrowNightEighties } from 'react-syntax-highlighter/dist/cjs/styles/hljs'
+
 type tParams = Promise<{ projectSlug: string }>
 
 export default async function projectDetailsPage(props: { params: tParams }) {
   const { projectSlug } = await props.params
-  const repoData = await fetchRepositoryData({ name: projectSlug })
+  // const repoData = await fetchRepositoryData({ name: projectSlug })
+  const repoData = JSON.parse(await readFile('./repositories.json', 'utf8')).filter(
+    (repo: { name: string }) => repo.name === projectSlug,
+  )[0]
 
+  console.log('repoData: ', repoData)
   return (
     <div className="mx-auto max-w-7xl space-y-8 md:space-y-16 lg:px-8">
       <Navigation disableLinks={true} />
@@ -23,45 +29,31 @@ export default async function projectDetailsPage(props: { params: tParams }) {
       )}
 
       <div className="h-px w-full bg-zinc-800" />
-      <p>Testing the use of react-syntax-highlighter: </p>
-      <SyntaxHighlighter
-        language={'tsx'}
-        style={tomorrowNightEighties}
-        showLineNumbers
-        wrapLines
-        customStyle={{
-          fontSize: '14px',
-          overflowY: 'auto',
-          overflowWrap: 'break-word',
-          maxWidth: '90vw',
-        }}
-      >
-        {`interface User {
-  id: number;
-  name: string;
-  email: string;
-  isAdmin: boolean;
-}
-
-class UserService {
-  private users: User[] = [];
-
-  addUser(user: User): void {
-    this.users.push(user);
-  }
-
-  getUserById(id: number): User | undefined {
-    return this.users.find(user => user.id === id);
-  }
-
-  getAllUsers(): User[] {
-    return this.users;
-  }
-}
-
-// Example usage
-const userService = new UserService();`}
-      </SyntaxHighlighter>
+      {repoData.features && (
+        <div className="space-y-12">
+          {repoData.features.map((feature: { title: string; description: string; codeSnippet: string }) => (
+            <div key={feature.title} className="space-y-4 rounded-lg border border-zinc-800 bg-zinc-900 p-6 shadow-lg">
+              <h3 className="text-xl font-bold tracking-tight text-zinc-100 sm:text-xl">{feature.title}</h3>
+              <p className="text-zinc-400">{feature.description}</p>
+              <SyntaxHighlighter
+                language={'tsx'}
+                style={tomorrowNightEighties}
+                showLineNumbers
+                wrapLines
+                customStyle={{
+                  fontSize: '14px',
+                  overflowY: 'auto',
+                  overflowWrap: 'break-word',
+                  maxWidth: '100%',
+                  borderRadius: '4px',
+                }}
+              >
+                {feature.codeSnippet}
+              </SyntaxHighlighter>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

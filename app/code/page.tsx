@@ -1,16 +1,23 @@
-import { fetchPinnedRepositories, GraphQLRepository } from '@/utils/github/graphql-api'
+import { GraphQLRepository } from '@/utils/github/graphql-api'
 import { Card } from '../components/GeneralCard'
 import { Navigation } from '../components/Navigation'
+import { readFile } from 'node:fs/promises'
 
 export default async function Projects() {
-  const pinnedRepositories = await fetchPinnedRepositories()
+  // const pinnedRepositories = await fetchPinnedRepositories()
+
+  // Temporarily read from local .json for testing.
+  const pinnedRepositories = JSON.parse(await readFile('./repositories.json', 'utf8'))
 
   return (
     <div className="mx-auto max-w-7xl space-y-8 md:space-y-16 lg:px-8">
       <Navigation />
       <div className="mx-auto lg:mx-0">
         <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">Repositories</h2>
-        <p className="mt-4 text-zinc-400">Some of the projects are from work and some are on my own time.</p>
+        <p className="mt-4 text-zinc-400">
+          The following projects are my pinned repositories on GitHub, showcasing the ones I believe best represent my
+          current professional focus.
+        </p>
       </div>
       <div className="h-px w-full bg-zinc-800" />
       <div className="grid grid-cols-1 grid-rows-2 gap-8 sm:grid-cols-2">

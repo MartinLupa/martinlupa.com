@@ -15,8 +15,7 @@ export const fetchAllRepos = async () => {
         Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
       },
     })
-    const repositories = await repositoriesData.json()
-    return repositories
+    return await repositoriesData.json()
   } catch (error) {
     console.error(error)
   }
