@@ -34,27 +34,32 @@
       {
         "title": "Pull Request Workflow for Targeted Deployments",
         "description": "A GitHub Actions workflow that automates deployments during pull requests by identifying modified paths and deploying only the impacted applications.",
-        "codeSnippet": "`name: Pull request workflow\n\non:\n  pull_request:\n    types: [synchronize, opened, reopened]\n\njobs:\n  check-paths:\n    name: Check modified paths\n    runs-on: ubuntu-latest\n    steps:\n      - name: Check out code\n        uses: actions/checkout@v4\n      - name: Check paths\n        uses: ./.github/actions/check-paths\n\n  unified-web-app-preview-deployment:\n    name: Deploy Unified-web App (Vercel Preview)\n    if: ${{ needs.check-paths.outputs.unified == 'true' }}\n    uses: ./.github/workflows/reusable-vercel-deploy.yml\n    with:\n      app-name: 'Unified-web App'\n      github-environment: 'dev'\n      vercel-environment: 'preview'\n      domains: pr-domain.vercel.app`"
+        "codeSnippet": "name: Pull request workflow\n\non:\n  pull_request:\n    types: [synchronize, opened, reopened]\n\njobs:\n  check-paths:\n    name: Check modified paths\n    runs-on: ubuntu-latest\n    steps:\n      - name: Check out code\n        uses: actions/checkout@v4\n      - name: Check paths\n        uses: ./.github/actions/check-paths\n\n  unified-web-app-preview-deployment:\n    name: Deploy Unified-web App (Vercel Preview)\n    if: ${{ needs.check-paths.outputs.unified == 'true' }}\n    uses: ./.github/workflows/reusable-vercel-deploy.yml\n    with:\n      app-name: 'Unified-web App'\n      github-environment: 'dev'\n      vercel-environment: 'preview'\n      domains: pr-domain.vercel.app",
+        "language": "yaml"
       },
       {
         "title": "Reusable Vercel Deployment Workflow",
         "description": "Provides a standardized and reusable workflow for deploying applications to Vercel. Supports environment-specific builds, domain aliasing, and deployment URL output.",
-        "codeSnippet": "`name: Deploy to Vercel\n\non:\n  workflow_call:\n    inputs:\n      app-name:\n        description: 'The name of the app to deploy.'\n        type: string\n      vercel-environment:\n        description: 'The Vercel environment.'\n        type: string\n        default: 'preview'\n      domains:\n        description: 'List of domains for aliasing.'\n        type: string\n\njobs:\n  vercel-deploy:\n    runs-on: ubuntu-latest\n    steps:\n      - name: Build and Deploy\n        run: |\n          vercel build --token=${{ secrets.VERCEL_TOKEN }}\n          vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} > domain.txt`"
+        "codeSnippet": "name: Deploy to Vercel\n\non:\n  workflow_call:\n    inputs:\n      app-name:\n        description: 'The name of the app to deploy.'\n        type: string\n      vercel-environment:\n        description: 'The Vercel environment.'\n        type: string\n        default: 'preview'\n      domains:\n        description: 'List of domains for aliasing.'\n        type: string\n\njobs:\n  vercel-deploy:\n    runs-on: ubuntu-latest\n    steps:\n      - name: Build and Deploy\n        run: |\n          vercel build --token=${{ secrets.VERCEL_TOKEN }}\n          vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} > domain.txt",
+        "language": "yaml"
       },
       {
         "title": "Manual Workflow for Vercel Deployments",
         "description": "Allows manual deployment of applications to Vercel with options for selecting the application and environment, enabling more control over the process.",
-        "codeSnippet": "`name: Vercel apps deployment - Manual workflow\n\non:\n  workflow_dispatch:\n    inputs:\n      app-name:\n        description: 'The app to deploy.'\n        type: choice\n        options: ['Unified-web App', 'Login App']\n      environment:\n        description: 'Deployment environment.'\n        type: choice\n        options: ['preview', 'production']\n\njobs:\n  unified-web-app-preview-deployment:\n    name: Deploy Unified-web App (Preview)\n    if: ${{ github.event.inputs.app-name == 'Unified-web App' && github.event.inputs.environment == 'preview' }}\n    uses: ./.github/workflows/reusable-vercel-deploy.yml\n    with:\n      app-name: 'Unified-web App'\n      github-environment: 'staging'\n      vercel-environment: 'preview'\n      domains: staging-domain.vercel.app`"
+        "codeSnippet": "name: Vercel apps deployment - Manual workflow\n\non:\n  workflow_dispatch:\n    inputs:\n      app-name:\n        description: 'The app to deploy.'\n        type: choice\n        options: ['Unified-web App', 'Login App']\n      environment:\n        description: 'Deployment environment.'\n        type: choice\n        options: ['preview', 'production']\n\njobs:\n  unified-web-app-preview-deployment:\n    name: Deploy Unified-web App (Preview)\n    if: ${{ github.event.inputs.app-name == 'Unified-web App' && github.event.inputs.environment == 'preview' }}\n    uses: ./.github/workflows/reusable-vercel-deploy.yml\n    with:\n      app-name: 'Unified-web App'\n      github-environment: 'staging'\n      vercel-environment: 'preview'\n      domains: staging-domain.vercel.app",
+        "language": "yaml"
       },
       {
         "title": "Vercel Action for Automated Deployments",
         "description": "Custom GitHub Action to streamline Vercel deployments, including building, deploying, and aliasing domains, with outputs for deployment URLs.",
-        "codeSnippet": "`name: Deploy to Vercel\n\ninputs:\n  app-name:\n    description: 'The name of the app to deploy.'\n    required: true\n  vercel-environment:\n    description: 'The Vercel environment.'\n    required: true\n  domains:\n    description: 'List of domains for aliasing.'\n    required: true\n\nruns:\n  using: composite\n  steps:\n    - name: Install Vercel CLI\n      run: pnpm install -g vercel@latest\n    - name: Build and Deploy\n      run: |\n        vercel build --token=${{ env.VERCEL_TOKEN }}\n        vercel deploy --prebuilt --token=${{ env.VERCEL_TOKEN }} > domain.txt`"
+        "codeSnippet": "name: Deploy to Vercel\n\ninputs:\n  app-name:\n    description: 'The name of the app to deploy.'\n    required: true\n  vercel-environment:\n    description: 'The Vercel environment.'\n    required: true\n  domains:\n    description: 'List of domains for aliasing.'\n    required: true\n\nruns:\n  using: composite\n  steps:\n    - name: Install Vercel CLI\n      run: pnpm install -g vercel@latest\n    - name: Build and Deploy\n      run: |\n        vercel build --token=${{ env.VERCEL_TOKEN }}\n        vercel deploy --prebuilt --token=${{ env.VERCEL_TOKEN }} > domain.txt",
+        "language": "yaml"
       },
       {
         "title": "Slack Notifications for Deployment Updates",
         "description": "Custom GitHub Action to send Slack notifications about deployment status, including success or failure details and links to deployed applications.",
-        "codeSnippet": "`name: Slack Notification\n\ninputs:\n  app-name:\n    description: 'Name of the app being deployed.'\n    required: true\n  deployment-url:\n    description: 'URL of the deployed app.'\n    required: true\n  deployment-status:\n    description: 'Status of the deployment (success or failure).'\n    required: true\n\nruns:\n  using: composite\n  steps:\n    - name: Notify Slack\n      uses: slackapi/slack-github-action@v1.27.0\n      with:\n        payload: |\n          {\n            \"text\": \"${{ inputs.deployment-status }}\",\n            \"blocks\": [\n              {\"type\": \"section\", \"text\": {\"type\": \"mrkdwn\", \"text\": \"*Deployment Update*\"}}\n            ]\n          }`"
+        "codeSnippet": "name: Slack Notification\n\ninputs:\n  app-name:\n    description: 'Name of the app being deployed.'\n    required: true\n  deployment-url:\n    description: 'URL of the deployed app.'\n    required: true\n  deployment-status:\n    description: 'Status of the deployment (success or failure).'\n    required: true\n\nruns:\n  using: composite\n  steps:\n    - name: Notify Slack\n      uses: slackapi/slack-github-action@v1.27.0\n      with:\n        payload: |\n          {\n            \"text\": \"${{ inputs.deployment-status }}\",\n            \"blocks\": [\n              {\"type\": \"section\", \"text\": {\"type\": \"mrkdwn\", \"text\": \"*Deployment Update*\"}}\n            ]\n          }",
+        "language": "yaml"
       }
     ]
   },
@@ -103,27 +108,32 @@
       {
         "title": "Centralized Email Sending Service",
         "description": "Implements a centralized service for sending emails using multiple providers with retry logic. This ensures reliable email delivery, even if one provider fails, adding business resilience.",
-        "codeSnippet": "func (s *EmailService) SendEmail(from, subject, body, to string) error {\n  var lastErr error\n  for attempt := 0; attempt <= s.retries; attempt++ {\n    for _, provider := range s.providers {\n      id, err := provider.SendEmail(from, subject, body, to)\n      if err != nil {\n        log.Printf(\"[%T] Failed: %s\\n\", provider, err)\n        lastErr = err\n        continue\n      }\n      log.Printf(\"Transmission sent with id [%s] using [%T]\\n\", id, provider)\n      return nil\n    }\n    if attempt < s.retries {\n      log.Printf(\"All providers failed, retrying in 5 seconds (Attempt %d of %d)\\n\", attempt+1, s.retries)\n      time.Sleep(5 * time.Second)\n    }\n  }\n  log.Printf(\"All providers failed after %d retries\\n\", s.retries)\n  return lastErr\n}"
+        "codeSnippet": "func (s *EmailService) SendEmail(from, subject, body, to string) error {\n  var lastErr error\n  for attempt := 0; attempt <= s.retries; attempt++ {\n    for _, provider := range s.providers {\n      id, err := provider.SendEmail(from, subject, body, to)\n      if err != nil {\n        log.Printf(\"[%T] Failed: %s\\n\", provider, err)\n        lastErr = err\n        continue\n      }\n      log.Printf(\"Transmission sent with id [%s] using [%T]\\n\", id, provider)\n      return nil\n    }\n    if attempt < s.retries {\n      log.Printf(\"All providers failed, retrying in 5 seconds (Attempt %d of %d)\\n\", attempt+1, s.retries)\n      time.Sleep(5 * time.Second)\n    }\n  }\n  log.Printf(\"All providers failed after %d retries\\n\", s.retries)\n  return lastErr\n}",
+        "language": "go"
       },
       {
         "title": "Mailgun Integration for Email Delivery",
         "description": "Provides integration with Mailgun's email service, allowing companies to leverage Mailgun's APIs for scalable email delivery.",
-        "codeSnippet": "func (p *MailgunProvider) SendEmail(from, subject, body, to string) (string, error) {\n  mg := mailgun.NewMailgun(p.domain, p.apiKey)\n  m := mg.NewMessage(from, subject, body, to)\n  id, _, err := mg.Send(context.Background(), m)\n  return id, err\n}"
+        "codeSnippet": "func (p *MailgunProvider) SendEmail(from, subject, body, to string) (string, error) {\n  mg := mailgun.NewMailgun(p.domain, p.apiKey)\n  m := mg.NewMessage(from, subject, body, to)\n  id, _, err := mg.Send(context.Background(), m)\n  return id, err\n}",
+        "language": "go"
       },
       {
         "title": "SparkPost Integration for Email Delivery",
         "description": "Adds support for SparkPost's email service, enabling diversified email provider usage for improved delivery reliability.",
-        "codeSnippet": "func (p *SparkPostProvider) SendEmail(from, subject, body, to string) (string, error) {\n  cfg := &sp.Config{\n    BaseUrl: \"https://api.sparkpost.com\",\n    ApiKey: p.apiKey,\n    ApiVersion: 1,\n  }\n  var client sp.Client\n  err := client.Init(cfg)\n  if err != nil {\n    log.Fatalf(\"SparkPost client init failed: %s\\n\", err)\n  }\n  tx := &sp.Transmission{\n    Recipients: []string{to},\n    Content: sp.Content{\n      HTML: \"<p>\" + body + \"</p>\",\n      From: from,\n      Subject: subject\n    }\n  }\n  id, _, err := client.Send(tx)\n  return id, err\n}"
+        "codeSnippet": "func (p *SparkPostProvider) SendEmail(from, subject, body, to string) (string, error) {\n  cfg := &sp.Config{\n    BaseUrl: \"https://api.sparkpost.com\",\n    ApiKey: p.apiKey,\n    ApiVersion: 1,\n  }\n  var client sp.Client\n  err := client.Init(cfg)\n  if err != nil {\n    log.Fatalf(\"SparkPost client init failed: %s\\n\", err)\n  }\n  tx := &sp.Transmission{\n    Recipients: []string{to},\n    Content: sp.Content{\n      HTML: \"<p>\" + body + \"</p>\",\n      From: from,\n      Subject: subject\n    }\n  }\n  id, _, err := client.Send(tx)\n  return id, err\n}",
+        "language": "go"
       },
       {
         "title": "Dynamic Configuration Loader",
         "description": "Dynamically loads configuration from environment variables, enabling flexible deployments across different environments without code changes.",
-        "codeSnippet": "func LoadConfig() *Config {\n  return &Config{\n    PORT: os.Getenv(\"PORT\"),\n    MailgunDomain: os.Getenv(\"MAILGUN_DOMAIN\"),\n    MailgunAPIKey: os.Getenv(\"MAILGUN_API_KEY\"),\n    SparkPostAPIKey: os.Getenv(\"SPARKPOST_API_KEY\")\n  }\n}"
+        "codeSnippet": "func LoadConfig() *Config {\n  return &Config{\n    PORT: os.Getenv(\"PORT\"),\n    MailgunDomain: os.Getenv(\"MAILGUN_DOMAIN\"),\n    MailgunAPIKey: os.Getenv(\"MAILGUN_API_KEY\"),\n    SparkPostAPIKey: os.Getenv(\"SPARKPOST_API_KEY\")\n  }\n}",
+        "language": "go"
       },
       {
         "title": "REST API Endpoint for Sending Emails",
         "description": "Provides a RESTful endpoint to trigger email sending via HTTP, enabling integration with other services or frontend applications.",
-        "codeSnippet": "http.HandleFunc(\"/send-email\", func(w http.ResponseWriter, r *http.Request) {\n  var payload EmailPayload\n  reqErr := json.NewDecoder(r.Body).Decode(&payload)\n  if reqErr != nil {\n    http.Error(w, \"Failed to parse request body\", http.StatusBadRequest)\n    return\n  }\n  err := emailService.SendEmail(\"sender@example.com\", payload.Subject, payload.Body, payload.To)\n  if err != nil {\n    http.Error(w, \"Both providers failed.\", http.StatusInternalServerError)\n    return\n  }\n  w.WriteHeader(http.StatusOK)\n  w.Write([]byte(\"Email sent successfully!\"))\n})"
+        "codeSnippet": "http.HandleFunc(\"/send-email\", func(w http.ResponseWriter, r *http.Request) {\n  var payload EmailPayload\n  reqErr := json.NewDecoder(r.Body).Decode(&payload)\n  if reqErr != nil {\n    http.Error(w, \"Failed to parse request body\", http.StatusBadRequest)\n    return\n  }\n  err := emailService.SendEmail(\"sender@example.com\", payload.Subject, payload.Body, payload.To)\n  if err != nil {\n    http.Error(w, \"Both providers failed.\", http.StatusInternalServerError)\n    return\n  }\n  w.WriteHeader(http.StatusOK)\n  w.Write([]byte(\"Email sent successfully!\"))\n})",
+        "language": "go"
       }
     ]
   },
@@ -177,27 +187,32 @@
       {
         "title": "Home Page with Static Rendering",
         "description": "The homepage is rendered statically, focusing on fast load times and delivering a consistent user experience. This leverages Next.js static site generation (SSG) for optimal performance.",
-        "codeSnippet": "`export default async function Home() {\n  return (\n    <div className=\"flex h-screen w-screen flex-col items-center justify-center overflow-hidden\">\n      <h1 className=\"text-edge-outline\">Martin Lupa</h1>\n      <h2>Full-Stack Developer: React.js, Next.js, Node.js</h2>\n    </div>\n  );\n}`"
+        "codeSnippet": "export default async function Home() {\n  return (\n    <div className=\"flex h-screen w-screen flex-col items-center justify-center overflow-hidden\">\n      <h1 className=\"text-edge-outline\">Martin Lupa</h1>\n      <h2>Full-Stack Developer: React.js, Next.js, Node.js</h2>\n    </div>\n  );\n}",
+        "language": "tsx"
       },
       {
         "title": "Dynamic Blog Listing with Client-Side Rendering",
         "description": "The blog page dynamically renders a list of posts using client-side rendering to provide an interactive experience, especially useful for frequently updated content.",
-        "codeSnippet": "`export default function BlogPage() {\n  return (\n    <div className=\"grid gap-6\">\n      {blogPosts.map((post) => (\n        <BlogPost key={post.slug} title={post.title} excerpt={post.excerpt} />\n      ))}\n    </div>\n  );\n}`"
+        "codeSnippet": "export default function BlogPage() {\n  return (\n    <div className=\"grid gap-6\">\n      {blogPosts.map((post) => (\n        <BlogPost key={post.slug} title={post.title} excerpt={post.excerpt} />\n      ))}\n    </div>\n  );\n}",
+        "language": "tsx"
       },
       {
         "title": "Project Details Page with Server-Side Rendering",
         "description": "The project details page dynamically fetches data on the server for each project, ensuring up-to-date and SEO-friendly content leveraging Next.js server-side rendering (SSR).",
-        "codeSnippet": "`export default async function projectDetailsPage({ params }) {\n  const { projectSlug } = params;\n  const repoData = await fetchRepositoryData({ name: projectSlug });\n  return (\n    <div>\n      <h2>{projectSlug}</h2>\n      <p>{repoData.description}</p>\n    </div>\n  );\n}`"
+        "codeSnippet": "export default async function projectDetailsPage({ params }) {\n  const { projectSlug } = params;\n  const repoData = await fetchRepositoryData({ name: projectSlug });\n  return (\n    <div>\n      <h2>{projectSlug}</h2>\n      <p>{repoData.description}</p>\n    </div>\n  );\n}",
+        "language": "tsx"
       },
       {
         "title": "Backend API with Server-Side Logic",
         "description": "A server-side API handles OpenAI requests, processing user inputs and providing dynamically generated responses, demonstrating server-side processing.",
-        "codeSnippet": "`export async function POST(request: NextRequest) {\n  const { prompt } = await request.json();\n  if (!prompt) {\n    return NextResponse.json({ error: \"Prompt is required\" });\n  }\n  const responseData = { content: \"Mocked response content for now\" };\n  return NextResponse.json({ data: responseData.content });\n}`"
+        "codeSnippet": "export async function POST(request: NextRequest) {\n  const { prompt } = await request.json();\n  if (!prompt) {\n    return NextResponse.json({ error: \"Prompt is required\" });\n  }\n  const responseData = { content: \"Mocked response content for now\" };\n  return NextResponse.json({ data: responseData.content });\n}",
+        "language": "typescript"
       },
       {
         "title": "Interactive Blog Post Cards with Client-Side Animation",
         "description": "Interactive blog cards utilize Framer Motion for smooth hover effects and dynamic visuals, rendered on the client-side for an engaging user experience.",
-        "codeSnippet": "`export const BlogPost: React.FC<BlogPostProps> = ({ title, excerpt }) => {\n  return (\n    <Link href={\\`/blog/\\${slug}\\`}>\n      <div className=\"group relative cursor-pointer\">\n        <h2>{title}</h2>\n        <p>{excerpt}</p>\n      </div>\n    </Link>\n  );\n};`"
+        "codeSnippet": "export const BlogPost: React.FC<BlogPostProps> = ({ title, excerpt }) => {\n  return (\n    <Link href={`/blog/${slug}`}>\n      <div className=\"group relative cursor-pointer\">\n        <h2>{title}</h2>\n        <p>{excerpt}</p>\n      </div>\n    </Link>\n  );\n};",
+        "language": "tsx"
       }
     ]
   },
@@ -246,27 +261,32 @@
       {
         "title": "Dynamic Reverse Proxy Configuration",
         "description": "Provides a dynamic reverse proxy mechanism by leveraging Vercel's KV store for route rewrites, ensuring high configurability for traffic redirection based on predefined URL patterns.",
-        "codeSnippet": "export async function updateKVStore() {\n  const patterns = await getUrlPatterns();\n  for (const [path, destination] of Object.entries(patterns)) {\n    await kv.set(`rewrite:${path}`, destination);\n  }\n}"
+        "codeSnippet": "export async function updateKVStore() {\n  const patterns = await getUrlPatterns();\n  for (const [path, destination] of Object.entries(patterns)) {\n    await kv.set(`rewrite:${path}`, destination);\n  }\n}",
+        "language": "typescript"
       },
       {
         "title": "Flexible URL Patterns via Contentful",
         "description": "Allows dynamic fetching and configuration of URL patterns from Contentful, enabling seamless updates to routing logic without redeployments, enhancing content management integration.",
-        "codeSnippet": "export async function getUrlPatterns() {\n  const patterns: Record<string, string> = {};\n  const manualPatternsDir = path.join(process.cwd(), \"manual-patterns\");\n  const files = fs.readdirSync(manualPatternsDir);\n  for (const file of files) {\n    if (file.endsWith(\".json\")) {\n      const content = fs.readFileSync(\n        path.join(manualPatternsDir, file),\n        \"utf-8\"\n      );\n      Object.assign(patterns, JSON.parse(content));\n    }\n  }\n  return patterns;\n}"
+        "codeSnippet": "export async function getUrlPatterns() {\n  const patterns: Record<string, string> = {};\n  const manualPatternsDir = path.join(process.cwd(), \"manual-patterns\");\n  const files = fs.readdirSync(manualPatternsDir);\n  for (const file of files) {\n    if (file.endsWith(\".json\")) {\n      const content = fs.readFileSync(\n        path.join(manualPatternsDir, file),\n        \"utf-8\"\n      );\n      Object.assign(patterns, JSON.parse(content));\n    }\n  }\n  return patterns;\n}",
+        "language": "typescript"
       },
       {
         "title": "Rewrite API for Dynamic Proxying",
         "description": "Implements an edge-optimized API for rewriting requests dynamically based on KV store mappings, enhancing user experience with precise and efficient routing.",
-        "codeSnippet": "export default async function handler(req: NextRequest, res: NextResponse) {\n  const path = req.nextUrl.pathname;\n  if (path === \"/proxy-status\") {\n    return NextResponse.next();\n  }\n  let rewrite = await kv.get(`rewrite:${path}`);\n  if (rewrite) {\n    const response = NextResponse.rewrite(new URL(rewrite as string, req.url));\n    return response;\n  } else {\n    return new NextResponse(\"Not found\", { status: 404 });\n  }\n}"
+        "codeSnippet": "export default async function handler(req: NextRequest, res: NextResponse) {\n  const path = req.nextUrl.pathname;\n  if (path === \"/proxy-status\") {\n    return NextResponse.next();\n  }\n  let rewrite = await kv.get(`rewrite:${path}`);\n  if (rewrite) {\n    const response = NextResponse.rewrite(new URL(rewrite as string, req.url));\n    return response;\n  } else {\n    return new NextResponse(\"Not found\", { status: 404 });\n  }\n}",
+        "language": "typescript"
       },
       {
         "title": "Hook for KV Store Updates",
         "description": "Provides an API endpoint to trigger KV store updates, ensuring the routing configurations remain up-to-date with the latest URL patterns.",
-        "codeSnippet": "export async function POST(request: NextRequest) {\n  await updateKVStore();\n  return NextResponse.json({ message: 'KV store updated' });\n}"
+        "codeSnippet": "export async function POST(request: NextRequest) {\n  await updateKVStore();\n  return NextResponse.json({ message: 'KV store updated' });\n}",
+        "language": "typescript"
       },
       {
         "title": "Custom Routing for Excluded Paths",
         "description": "Implements custom logic to exclude specific paths from the rewrite process, enabling selective routing while maintaining flexibility for static or non-rewritten content.",
-        "codeSnippet": "export async function GET(request: NextRequest) {\n  const path = request.nextUrl.pathname;\n  if (path === \"/proxy-status\") {\n    return NextResponse.next();\n  }\n  const rewrite = await kv.get(`rewrite:${path}`);\n  if (rewrite) {\n    const response = NextResponse.redirect(\n      new URL(rewrite as string, request.url)\n    );\n    return response;\n  } else {\n    return new NextResponse(\"Not found\", { status: 404 });\n  }\n}"
+        "codeSnippet": "export async function GET(request: NextRequest) {\n  const path = request.nextUrl.pathname;\n  if (path === \"/proxy-status\") {\n    return NextResponse.next();\n  }\n  const rewrite = await kv.get(`rewrite:${path}`);\n  if (rewrite) {\n    const response = NextResponse.redirect(\n      new URL(rewrite as string, request.url)\n    );\n    return response;\n  } else {\n    return new NextResponse(\"Not found\", { status: 404 });\n  }\n}",
+        "language": "typescript"
       }
     ]
   },
@@ -305,27 +325,32 @@
       {
         "title": "Express.js Service with Middleware and Metrics",
         "description": "Implements a Node.js service using Express.js, integrated with a response-time middleware to track REST API performance metrics. This supports observability and ensures performance insights.",
-        "codeSnippet": "`import express from 'express';\nimport responseTime from 'response-time';\nimport { restResponseTimeHistogram, startMetricsServer } from '../utils/metrics.js';\n\nconst app = express();\nconst SERVICE_PORT = process.env.MAIN_SERVICE_PORT ?? 3000;\n\napp.use(\n  responseTime((req, res, time) => {\n    if (req.route.path) {\n      restResponseTimeHistogram.observe(\n        { method: req.method, route: req.route.path, status_code: res.statusCode },\n        time / 1000,\n      );\n    }\n  }),\n);\n\napp.get('/', (req, res) => {\n  res.send('Hello World!');\n});\n\napp.listen(SERVICE_PORT, () => {\n  console.info(`[mainServer] started on port ${SERVICE_PORT}`);\n});\n\nstartMetricsServer();`"
+        "codeSnippet": "import express from 'express';\nimport responseTime from 'response-time';\nimport { restResponseTimeHistogram, startMetricsServer } from '../utils/metrics.js';\n\nconst app = express();\nconst SERVICE_PORT = process.env.MAIN_SERVICE_PORT ?? 3000;\n\napp.use(\n  responseTime((req, res, time) => {\n    if (req.route.path) {\n      restResponseTimeHistogram.observe(\n        { method: req.method, route: req.route.path, status_code: res.statusCode },\n        time / 1000,\n      );\n    }\n  }),\n);\n\napp.get('/', (req, res) => {\n  res.send('Hello World!');\n});\n\napp.listen(SERVICE_PORT, () => {\n  console.info(`[mainServer] started on port ${SERVICE_PORT}`);\n});\n\nstartMetricsServer();",
+        "language": "typescript"
       },
       {
         "title": "Prometheus Metrics for API and Database",
         "description": "Defines Prometheus histograms to track response times for API and database operations, aiding in monitoring and performance analysis.",
-        "codeSnippet": "`import { Histogram, collectDefaultMetrics } from 'prom-client';\n\nexport const restResponseTimeHistogram = new Histogram({\n  name: 'rest_response_time_duration_seconds',\n  help: 'REST API response time in seconds',\n  labelNames: ['method', 'route', 'status_code'],\n});\n\nexport const databaseResponseTimeHistogram = new Histogram({\n  name: 'db_response_time_duration_seconds',\n  help: 'Database response time in seconds',\n  labelNames: ['operation', 'success'],\n});\n\nexport function startMetricsServer() {\n  collectDefaultMetrics();\n  app.listen(METRICS_PORT, () => {\n    console.info(`[metricsServer] started on ${METRICS_PORT}`);\n  });\n}`"
+        "codeSnippet": "import { Histogram, collectDefaultMetrics } from 'prom-client';\n\nexport const restResponseTimeHistogram = new Histogram({\n  name: 'rest_response_time_duration_seconds',\n  help: 'REST API response time in seconds',\n  labelNames: ['method', 'route', 'status_code'],\n});\n\nexport const databaseResponseTimeHistogram = new Histogram({\n  name: 'db_response_time_duration_seconds',\n  help: 'Database response time in seconds',\n  labelNames: ['operation', 'success'],\n});\n\nexport function startMetricsServer() {\n  collectDefaultMetrics();\n  app.listen(METRICS_PORT, () => {\n    console.info(`[metricsServer] started on ${METRICS_PORT}`);\n  });\n}",
+        "language": "typescript"
       },
       {
         "title": "Dockerized Service with Multi-Stage Builds",
         "description": "Dockerfile with multi-stage builds optimizes container size by separating dependencies, build artifacts, and runtime requirements. Suitable for scalable and efficient deployments.",
-        "codeSnippet": "`FROM node:20-slim AS base\nENV PNPM_HOME=\"/pnpm\"\nENV PATH=\"$PNPM_HOME:$PATH\"\nRUN corepack enable\nCOPY . /app\nWORKDIR /app\n\nFROM base AS prod-deps\nRUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile\n\nFROM base AS build\nRUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile\nRUN pnpm run build\n\nFROM base\nCOPY --from=prod-deps /app/node_modules /app/node_modules\nCOPY --from=build /app/dist /app/dist\nEXPOSE 3000\nCMD [ \"pnpm\", \"start\" ]`"
+        "codeSnippet": "FROM node:20-slim AS base\nENV PNPM_HOME=\"/pnpm\"\nENV PATH=\"$PNPM_HOME:$PATH\"\nRUN corepack enable\nCOPY . /app\nWORKDIR /app\n\nFROM base AS prod-deps\nRUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile\n\nFROM base AS build\nRUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile\nRUN pnpm run build\n\nFROM base\nCOPY --from=prod-deps /app/node_modules /app/node_modules\nCOPY --from=build /app/dist /app/dist\nEXPOSE 3000\nCMD [ \"pnpm\", \"start\" ]",
+        "language": "yaml"
       },
       {
         "title": "Basic Test Setup with Jest",
         "description": "Includes a basic test setup using Jest, laying the foundation for robust unit testing and ensuring code reliability.",
-        "codeSnippet": "`import { describe, expect, test } from '@jest/globals';\n\ndescribe('sum module', () => {\n  test('adds 1 + 2 to equal 3', () => {\n    expect(3).toBe(3);\n  });\n});`"
+        "codeSnippet": "import { describe, expect, test } from '@jest/globals';\n\ndescribe('sum module', () => {\n  test('adds 1 + 2 to equal 3', () => {\n    expect(3).toBe(3);\n  });\n});",
+        "language": "typescript"
       },
       {
         "title": "Buildkite CI/CD Pipeline",
         "description": "Configures Buildkite CI/CD pipeline to deploy the service using Docker Compose. Future scalability options include scaling services with Docker Swarm.",
-        "codeSnippet": "`steps:\n  - label: \":rocket: Deploy Service\"\n    command:\n      - docker-compose up -d`"
+        "codeSnippet": "steps:\n  - label: \":rocket: Deploy Service\"\n    command:\n      - docker-compose up -d",
+        "language": "yaml"
       }
     ]
   },
@@ -364,27 +389,32 @@
       {
         "title": "Serverless Order Processing with AWS Lambda",
         "description": "Implements a serverless order-processing handler using AWS Lambda, reducing infrastructure overhead and enabling scalability for handling dynamic workloads.",
-        "codeSnippet": "`exports.handler = async (event) => {\n  console.log(\"Received event:\", JSON.stringify(event, null, 2));\n\n  const response = {\n    statusCode: 200,\n    body: JSON.stringify({\n      message: \"Hello from Lambda!\",\n      input: event,\n    }),\n  };\n\n  return response;\n};`"
+        "codeSnippet": "exports.handler = async (event) => {\n  console.log(\"Received event:\", JSON.stringify(event, null, 2));\n\n  const response = {\n    statusCode: 200,\n    body: JSON.stringify({\n      message: \"Hello from Lambda!\",\n      input: event,\n    }),\n  };\n\n  return response;\n};",
+        "language": "javascript"
       },
       {
         "title": "Infrastructure as Code for Event-Driven Microservices",
         "description": "Defines a fully automated infrastructure setup using Terraform for an event-driven architecture. Integrates AWS EventBridge, SQS, and Lambda for seamless order processing.",
-        "codeSnippet": "`resource \"aws_cloudwatch_event_rule\" \"process_orders\" {\n  name        = \"process-orders\"\n  description = \"Rule to process orders\"\n  event_pattern = jsonencode({\n    \"source\" : [\"my.application\"]\n  })\n}\n\nresource \"aws_lambda_function\" \"test_lambda\" {\n  filename         = \"${path.module}/../src/index.zip\"\n  function_name    = \"test-lambda-function\"\n  role             = aws_iam_role.iam_for_lambda.arn\n  handler          = \"index.handler\"\n  runtime          = \"nodejs20.x\"\n  source_code_hash = data.archive_file.lambda.output_base64sha256\n}`"
+        "codeSnippet": "resource \"aws_cloudwatch_event_rule\" \"process_orders\" {\n  name        = \"process-orders\"\n  description = \"Rule to process orders\"\n  event_pattern = jsonencode({\n    \"source\" : [\"my.application\"]\n  })\n}\n\nresource \"aws_lambda_function\" \"test_lambda\" {\n  filename         = \"${path.module}/../src/index.zip\"\n  function_name    = \"test-lambda-function\"\n  role             = aws_iam_role.iam_for_lambda.arn\n  handler          = \"index.handler\"\n  runtime          = \"nodejs20.x\"\n  source_code_hash = data.archive_file.lambda.output_base64sha256\n}",
+        "language": "hcl"
       },
       {
         "title": "CI/CD Workflow for Terraform Validation",
         "description": "Introduces automated linting, formatting, and planning for Terraform in a pull request workflow. Ensures high-quality infrastructure definitions before merging.",
-        "codeSnippet": "`jobs:\n  lint_and_test:\n    runs-on: ubuntu-latest\n    steps:\n      - name: Checkout code\n        uses: actions/checkout@v4\n\n      - name: Setup Terraform\n        uses: hashicorp/setup-terraform@v3\n\n      - name: Terraform Format\n        run: terraform fmt -check\n\n      - uses: terraform-linters/setup-tflint@v4\n        name: Setup TFLint\n        with:\n          tflint_version: v0.50.3\n\n      - name: Run TFLint\n        run: tflint -f compact\n\n      - name: Terraform Plan\n        run: terraform plan -out=tfplan`"
+        "codeSnippet": "jobs:\n  lint_and_test:\n    runs-on: ubuntu-latest\n    steps:\n      - name: Checkout code\n        uses: actions/checkout@v4\n\n      - name: Setup Terraform\n        uses: hashicorp/setup-terraform@v3\n\n      - name: Terraform Format\n        run: terraform fmt -check\n\n      - uses: terraform-linters/setup-tflint@v4\n        name: Setup TFLint\n        with:\n          tflint_version: v0.50.3\n\n      - name: Run TFLint\n        run: tflint -f compact\n\n      - name: Terraform Plan\n        run: terraform plan -out=tfplan",
+        "language": "yaml"
       },
       {
         "title": "Production Deployment with LocalStack Testing",
         "description": "Utilizes LocalStack for local AWS testing and Terraform for deployment, ensuring a reliable pipeline for deploying infrastructure to production environments.",
-        "codeSnippet": "`services:\n  localstack:\n    container_name: \"${LOCALSTACK_DOCKER_NAME:-localstack-main}\"\n    image: localstack/localstack\n    ports:\n      - \"127.0.0.1:4566:4566\"\n      - \"127.0.0.1:4510-4559:4510-4559\"\n    environment:\n      - DEFAULT_REGION=eu-central-1\n      - DEBUG=1\n    volumes:\n      - \"${LOCALSTACK_VOLUME_DIR:-./tmp/volume}:/var/lib/localstack\"\n      - \"/var/run/docker.sock:/var/run/docker.sock\"`"
+        "codeSnippet": "services:\n  localstack:\n    container_name: \"${LOCALSTACK_DOCKER_NAME:-localstack-main}\"\n    image: localstack/localstack\n    ports:\n      - \"127.0.0.1:4566:4566\"\n      - \"127.0.0.1:4510-4559:4510-4559\"\n    environment:\n      - DEFAULT_REGION=eu-central-1\n      - DEBUG=1\n    volumes:\n      - \"${LOCALSTACK_VOLUME_DIR:-./tmp/volume}:/var/lib/localstack\"\n      - \"/var/run/docker.sock:/var/run/docker.sock\"",
+        "language": "yaml"
       },
       {
         "title": "Event-Driven Order Queue Management",
         "description": "Creates an SQS queue to buffer orders and connect with AWS Lambda for asynchronous order processing, ensuring reliable event handling in high-load scenarios.",
-        "codeSnippet": "`resource \"aws_sqs_queue\" \"test_queue\" {\n  name                    = \"test-queue\"\n  delay_seconds           = 1\n  max_message_size        = 2048\n  message_retention_seconds = 86400\n  receive_wait_time_seconds = 10\n}\n\nresource \"aws_lambda_event_source_mapping\" \"sqs_event_source\" {\n  event_source_arn = aws_sqs_queue.test_queue.arn\n  function_name    = aws_lambda_function.test_lambda.arn\n  batch_size       = 10\n  enabled          = true\n}`"
+        "codeSnippet": "resource \"aws_sqs_queue\" \"test_queue\" {\n  name                    = \"test-queue\"\n  delay_seconds           = 1\n  max_message_size        = 2048\n  message_retention_seconds = 86400\n  receive_wait_time_seconds = 10\n}\n\nresource \"aws_lambda_event_source_mapping\" \"sqs_event_source\" {\n  event_source_arn = aws_sqs_queue.test_queue.arn\n  function_name    = aws_lambda_function.test_lambda.arn\n  batch_size       = 10\n  enabled          = true\n}",
+        "language": "hcl"
       }
     ]
   }

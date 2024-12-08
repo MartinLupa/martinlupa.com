@@ -31,27 +31,32 @@ export default async function projectDetailsPage(props: { params: tParams }) {
       <div className="h-px w-full bg-zinc-800" />
       {repoData.features && (
         <div className="space-y-12">
-          {repoData.features.map((feature: { title: string; description: string; codeSnippet: string }) => (
-            <div key={feature.title} className="space-y-4 rounded-lg border border-zinc-800 bg-zinc-900 p-6 shadow-lg">
-              <h3 className="text-xl font-bold tracking-tight text-zinc-100 sm:text-xl">{feature.title}</h3>
-              <p className="text-zinc-400">{feature.description}</p>
-              <SyntaxHighlighter
-                language={'tsx'}
-                style={tomorrowNightEighties}
-                showLineNumbers
-                wrapLines
-                customStyle={{
-                  fontSize: '14px',
-                  overflowY: 'auto',
-                  overflowWrap: 'break-word',
-                  maxWidth: '100%',
-                  borderRadius: '4px',
-                }}
+          {repoData.features.map(
+            (feature: { title: string; description: string; codeSnippet: string; language: string }) => (
+              <div
+                key={feature.title}
+                className="space-y-4 rounded-lg border border-zinc-800 bg-zinc-900 p-6 shadow-lg"
               >
-                {feature.codeSnippet}
-              </SyntaxHighlighter>
-            </div>
-          ))}
+                <h3 className="text-xl font-bold tracking-tight text-zinc-100 sm:text-xl">{feature.title}</h3>
+                <p className="text-zinc-400">{feature.description}</p>
+                <SyntaxHighlighter
+                  language={feature.language}
+                  style={tomorrowNightEighties}
+                  showLineNumbers
+                  wrapLines
+                  customStyle={{
+                    fontSize: '14px',
+                    overflowY: 'auto',
+                    overflowWrap: 'break-word',
+                    maxWidth: '100%',
+                    borderRadius: '4px',
+                  }}
+                >
+                  {feature.codeSnippet}
+                </SyntaxHighlighter>
+              </div>
+            ),
+          )}
         </div>
       )}
     </div>
