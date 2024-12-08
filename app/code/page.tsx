@@ -7,7 +7,8 @@ export default async function Projects() {
   // const pinnedRepositories = await fetchPinnedRepositories()
 
   // Temporarily read from local .json for testing.
-  const pinnedRepositories = JSON.parse(await readFile('./repositories.json', 'utf8'))
+  const pinnedRepositories = JSON.parse(await readFile('./public/repositories.json', 'utf8'))
+  console.log(process.env.NEXT_PUBLIC_BASE_URL)
 
   return (
     <div className="mx-auto max-w-7xl space-y-8 md:space-y-16 lg:px-8">
