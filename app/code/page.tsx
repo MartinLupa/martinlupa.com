@@ -2,13 +2,13 @@ import { GraphQLRepository } from '@/utils/github/graphql-api'
 import { Card } from '../components/GeneralCard'
 import { Navigation } from '../components/Navigation'
 import { readFile } from 'node:fs/promises'
+import { repositoriesDataPath } from '@/utils/data-path'
 
 export default async function Projects() {
   // const pinnedRepositories = await fetchPinnedRepositories()
 
   // Temporarily read from local .json for testing.
-  const pinnedRepositories = JSON.parse(await readFile('./public/repositories.json', 'utf8'))
-  console.log(process.env.NEXT_PUBLIC_BASE_URL)
+  const pinnedRepositories = JSON.parse(await readFile(repositoriesDataPath, 'utf8'))
 
   return (
     <div className="mx-auto max-w-7xl space-y-8 md:space-y-16 lg:px-8">
