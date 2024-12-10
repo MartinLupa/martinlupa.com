@@ -20,8 +20,8 @@ interface CardProps {
 export const Card: React.FC<CardProps> = ({
   title,
   description,
-  repoUrl,
-  demoUrl,
+  // repoUrl,
+  // demoUrl,
   // techStack,
   createdAt,
   className,
