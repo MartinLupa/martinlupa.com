@@ -20,7 +20,9 @@ export default async function Projects() {
           current professional focus.
         </p>
       </div>
+      
       <div className="h-px w-full bg-zinc-800" />
+      
       <div className="grid grid-cols-1 grid-rows-2 gap-8 sm:grid-cols-2">
         {pinnedRepositories.map((repo: GraphQLRepository) => (
           <Card

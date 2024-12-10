@@ -2,7 +2,7 @@
 
 import { motion, useMotionTemplate, useSpring } from 'framer-motion'
 import { TechStack } from './TechStack'
-import Link from 'next/link'
+import { DiGithubBadge } from 'react-icons/di'
 
 interface CardProps {
   title: string
@@ -19,13 +19,13 @@ interface CardProps {
 export const Card: React.FC<CardProps> = ({
   title,
   description,
-  // repoUrl,
+  repoUrl,
   // demoUrl,
   // techStack,
   createdAt,
   className,
   topics,
-  href,
+  // href,
 }) => {
   const mouseX = useSpring(0, { stiffness: 500, damping: 100 })
   const mouseY = useSpring(0, { stiffness: 500, damping: 100 })
@@ -42,7 +42,6 @@ export const Card: React.FC<CardProps> = ({
   const date = new Date(createdAt).toLocaleDateString('en-US', { dateStyle: 'medium' })
 
   return (
-    <Link href={href}>
       <div
         onMouseMove={onMouseMove}
         className={`group relative overflow-hidden rounded-xl border border-zinc-600 duration-700 hover:border-zinc-400/50 hover:bg-zinc-800/10 md:gap-8 ${className}`}
@@ -67,7 +66,7 @@ export const Card: React.FC<CardProps> = ({
             <p className="mb-6 text-sm text-zinc-400">{description}</p>
             {topics && <TechStack stack={topics} />}
           </div>
-          {/* <div className="mt-6 flex items-center justify-end">
+           <div className="mt-6 flex items-center justify-end">
             {repoUrl && (
               <a
                 href={repoUrl}
@@ -75,22 +74,11 @@ export const Card: React.FC<CardProps> = ({
                 rel="noopener noreferrer"
                 className="text-zinc-400 transition-colors hover:text-zinc-200"
               >
-                <Github size={24} />
+                <DiGithubBadge size={36} />
               </a>
             )}
-            {demoUrl && (
-              <a
-                href={demoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="ml-2 text-zinc-400 transition-colors hover:text-zinc-200"
-              >
-                <ExternalLink size={24} />
-              </a>
-            )}
-          </div> */}
+          </div>
         </div>
       </div>
-    </Link>
   )
 }
